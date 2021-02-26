@@ -50,11 +50,10 @@ public class Body {
 		//VER pagina 4 abajo
 			//	1.Calculamos la aceleracion usando las leyes de newton--> a = f/m
 			Vector2D a = this.f.scale(1/t);
-			
 			// 2.Cambiamos la posicion a p+v*t + 1/2 * a *t2 
 			this.p = this.p.plus(this.v.scale(t)).plus(a.scale(1/2*t*t));
-	
 			//y la velocidad a v + a*t
+			this.v = this.v.plus(a.scale(t));
 	}
 	public JSONObject getState() {
 		//{ “id": id, "m": m, "p": p~, "v": ~v , "f": f }
