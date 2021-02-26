@@ -22,47 +22,39 @@ public class Body {
 		this.f = new Vector2D();
 	}
 	
-	
 	//Metodos
 	public String getId() { //devuelve el identiﬁcador del cuerpo.
-		
-		
+		return this.id;
 	}
 	public Vector2D getVelocity() { //devuelve el vector de velocidad.
-	
-		
+		return this.v;
 	}
 	public Vector2D getForce() {// devuelve el vector de fuerza.
-	
-		
-		
+		return this.f;
 	}
 	public Vector2D getPosition() {// devuelve el vector de posición.
-	
-	
-		
+		return this.p;
 	}
 	public double getMass() { //devuelve la masa del cuerpo.
-	
-		
-		
+		return this.m;
 	}
 	void addForce(Vector2D f) {
 	//añade la fuerza f al vector de fuerza del cuerpo 
 		//(usando el método plus de la clase Vector2D).
-	
-	
+		this.f.plus(f);
 	}
 	void resetForce() { //pone el valor del vector de fuerza a (0, 0).
-	
-	
+		this.f
 	}
 	void move(double t) { // mueve el cuerpo durante t segundos utilizando los atributos del mismo.
 		//VER pagina 4 abajo
-		
-		
-		
+			//	1.Calculamos la aceleracion usando las leyes de newton--> a = f/m
+			Vector2D a = this.f.scale(1/t);
+			
+			// 2.Cambiamos la posicion a p+v*t + 1/2 * a *t2 
+			this.p = this.p.plus(this.v.scale(t)).plus(a.scale(1/2*t*t));
 	
+			//y la velocidad a v + a*t
 	}
 	public JSONObject getState() {
 		//{ “id": id, "m": m, "p": p~, "v": ~v , "f": f }
@@ -70,14 +62,8 @@ public class Body {
 		
 	}
 	public String toString() { //devuelve getState().toString().
-	
-	
+		return this.getState().toString();
 	}
-	
-	
-	
-	
-	
 	
 	
 	
