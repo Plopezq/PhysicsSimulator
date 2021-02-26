@@ -10,7 +10,7 @@ public class MassLossingBody extends Body {
 	
 	MassLossingBody(String id, Vector2D v, Vector2D p, Double m, double lossFactor, double lossFrequency) {
 		super(id, v, p, m);
-		c=0; //inicializamos el contador a 0,0
+		c=0.0; //inicializamos el contador a 0,0
 	}
 	
 	//para la perdida de masa podemos hacerlo con un metodo aparte 
@@ -21,7 +21,7 @@ public class MassLossingBody extends Body {
 		
 		if (c>=lossFrequency) { // si el contador es mayor que la frecuencia, le hacemos perder la masa y reseteamos c
 		m = m *(1-lossFactor); // m *= (1-lossFactor)
-		c = 0;
+		c = 0.0;
 		}
 		
 	}
