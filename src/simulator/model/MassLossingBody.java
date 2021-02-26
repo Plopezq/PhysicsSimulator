@@ -16,6 +16,12 @@ public class MassLossingBody extends Body {
 	//para la perdida de masa podemos hacerlo con un metodo aparte 
 	//(que se llame dentro del move() de esta clase, o implementarlo directamente en su move()
 	
+	@Override
+	void move(double t) { // mueve el cuerpo durante t segundos utilizando los atributos del mismo.
+		super.move(t);
+		looseMass(t);
+	}
+	
 	private void looseMass(double t) {
 		c+=t; //anadimos al contador el tiempo que ha pasado al moverse esta vez el cuerpo
 		

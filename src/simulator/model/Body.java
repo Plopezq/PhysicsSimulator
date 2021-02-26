@@ -1,5 +1,6 @@
 package simulator.model;
 
+
 import org.json.JSONObject;
 
 import simulator.misc.Vector2D;
@@ -57,9 +58,11 @@ public class Body {
 	}
 	public JSONObject getState() {
 		//{ “id": id, "m": m, "p": p~, "v": ~v , "f": f }
-		
-		
-	}
+		JSONObject stateJSON = new JSONObject(this);//The key is formed by removing the "get" or "is"prefix. 
+		return stateJSON;							//If the second remaining character is not upper case, then 
+	}												//thefirst character is converted to lower case. 
+	
+	
 	public String toString() { //devuelve getState().toString().
 		return this.getState().toString();
 	}
