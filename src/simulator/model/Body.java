@@ -62,6 +62,7 @@ public class Body {
 		return stateJSON;							//If the second remaining character is not upper case, then 
 													//thefirst character is converted to lower case. 
 	/*Maybe we have to do like this : 
+	 * TODO
 	 * // we put some keys with simple values into 'jo1'
 		jo1.put("a", 1234);
 		jo1.put("b", 123.3e-10);
@@ -74,8 +75,8 @@ public class Body {
 		return this.getState().toString();
 	}
 	
-	public static void main() {
-		
+	public static void main() {//TODO -> eliminar
+		//Make some test in the future
 	}
 	
 }
