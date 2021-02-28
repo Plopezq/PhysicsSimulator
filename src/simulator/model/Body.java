@@ -60,13 +60,22 @@ public class Body {
 		//{ “id": id, "m": m, "p": p~, "v": ~v , "f": f }
 		JSONObject stateJSON = new JSONObject(this);//The key is formed by removing the "get" or "is"prefix. 
 		return stateJSON;							//If the second remaining character is not upper case, then 
-	}												//thefirst character is converted to lower case. 
+													//thefirst character is converted to lower case. 
+	/*Maybe we have to do like this : 
+	 * // we put some keys with simple values into 'jo1'
+		jo1.put("a", 1234);
+		jo1.put("b", 123.3e-10);
+		jo1.put("c", "Hollaaa");
+	 */
 	
+	}
 	
 	public String toString() { //devuelve getState().toString().
 		return this.getState().toString();
 	}
 	
-	
+	public static void main() {
+		
+	}
 	
 }
