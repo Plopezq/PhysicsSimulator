@@ -30,6 +30,6 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 			aceleracion = -g * b.getPosition().direction();
 			b.;
 		}		
-	}
+
 
 }
