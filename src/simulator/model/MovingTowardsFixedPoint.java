@@ -12,24 +12,17 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 	 * origen ~o = (0, 0). Técnicamente, para un cuerpo Bi , asumiendo que ~di es su
 	 * dirección, su aceleración debería ponerse a: −g · di .
 	 */
-	
-	
 
 	@Override
 	public void apply(List<Body> bs) {
-		// si tiene una aceleracion fija de 9.81 significa que 9.81=f/m por lo tanto f=9.81m
-		double g=9.81;
-		Vector2D nueva_f;
+		// si tiene una aceleracion fija de 9.81 significa que 9.81=f/m por lo tanto
+		// f=9.81m
 
 		for (Body b : bs) {
-			nueva_f.plus(b.m);
-			nueva_f.scale(9.81);
-			
+			Vector2D nueva_f = new Vector2D(b.m, b.m);
 			b.resetForce();
-			b.addForce(nueva_f);
-			aceleracion = -g * b.getPosition().direction();
-			b.;
-		}		
-
+			b.addForce(nueva_f.scale(-9.81));
+		}
+	}
 
 }

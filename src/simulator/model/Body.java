@@ -45,7 +45,7 @@ public class Body {
 	void addForce(Vector2D f) {
 	//añade la fuerza f al vector de fuerza del cuerpo 
 		//(usando el método plus de la clase Vector2D).
-		this.f.plus(f);
+		this.f = this.f.plus(f);
 	}
 	void resetForce() { //pone el valor del vector de fuerza a (0, 0).
 		this.f = new Vector2D(); //		_x = _y = 0.0;
