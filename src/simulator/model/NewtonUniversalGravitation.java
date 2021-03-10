@@ -10,6 +10,7 @@ public class NewtonUniversalGravitation implements ForceLaws {
 	
 	
 	
+	
 
 	@Override
 	public void apply(List<Body> bs) {
