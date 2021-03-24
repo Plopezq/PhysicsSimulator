@@ -1,5 +1,5 @@
 package simulator.factories;
-
+import simulator.misc.Vector2D;
 import org.json.JSONObject;
 
 import simulator.model.Body;
@@ -13,7 +13,9 @@ public class BasicBodyBuilder extends Builder<Body>{
 	
 	protected Body createTheInstance(JSONObject info){
 		//PROBAR que alomejor toca poner: info.get("type".get("id"))
-		this.cuerpo = new Body(info.get("id"),info.get("v"), info.get("p") ,info.get("m"));
+		this.cuerpo = new Body((String)info.get("id"),(Vector2D)info.get("v"), (Vector2D)info.get("p") ,(double)info.get("m"));
+		
+	
 		return this.cuerpo;
 	}
 }

@@ -15,7 +15,7 @@ public class Body {
 	protected double m; //Masa del cuerpo
 	
 	//Constructora
-	Body(String id,Vector2D v, Vector2D p, Double m ){
+	public Body(String id,Vector2D v, Vector2D p, Double m ){
 		this.id = id;
 		this.v = v;
 		this.p = p;
