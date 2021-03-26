@@ -8,7 +8,7 @@ public class MassLossingBody extends Body {
 	protected double c; //contador para acumular el tiempo [parametro t de move()]
 	
 	
-	MassLossingBody(String id, Vector2D v, Vector2D p, Double m, double lossFactor, double lossFrequency) {
+	public MassLossingBody(String id, Vector2D v, Vector2D p, double m, double lossFactor, double lossFrequency) {
 		super(id, v, p, m);
 		c=0.0; //inicializamos el contador a 0,0
 	}

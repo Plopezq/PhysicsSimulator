@@ -18,6 +18,7 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 
 	private void addTypesList() {
 		lista.add(new Builder<T>() {});  
+
 	}
 
 	@Override

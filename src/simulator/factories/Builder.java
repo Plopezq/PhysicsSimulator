@@ -6,7 +6,7 @@ public abstract class Builder<T> {
 
 	
 	private T objeto;
-	Builder(){
+	public Builder(){
 		
 	}
 	
@@ -62,6 +62,12 @@ public abstract class Builder<T> {
 		return null;
 	}
 	
+	protected JSONObject createData(){
+		//TODO
+		return null;
+	}
+	
+	protected abstract Object createTheInstance(JSONObject obj);
 	
 	
 }
