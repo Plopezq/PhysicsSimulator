@@ -67,7 +67,7 @@ public abstract class Builder<T> {
 		return null;
 	}
 	
-	protected abstract Object createTheInstance(JSONObject obj);
+	protected abstract Object createTheInstance(JSONObject info);
 	
 	
 }

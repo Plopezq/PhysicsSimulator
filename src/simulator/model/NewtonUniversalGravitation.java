@@ -7,9 +7,14 @@ import simulator.misc.Vector2D;
 
 public class NewtonUniversalGravitation implements ForceLaws {
 
+	private double G;
 	
-	
-	
+	public NewtonUniversalGravitation(double G) {
+		this.G = G;
+	}
+	public NewtonUniversalGravitation() {
+		this.G = Math.pow(6.67, -11);
+	}
 	
 
 	@Override

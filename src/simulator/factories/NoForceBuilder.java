@@ -16,8 +16,8 @@ public class NoForceBuilder extends Builder<ForceLaws>{
 	
 	@Override
 	protected Object createTheInstance(JSONObject obj) {
-		// TODO Auto-generated method stub
-		return null;
+		this.fuerza = new NoForce();
+		return this.fuerza;
 	}
 
 }

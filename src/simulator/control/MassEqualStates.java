@@ -9,6 +9,11 @@ import simulator.model.Body;
 
 public class MassEqualStates implements StateComparator {
 
+	//constructor por defecto
+	public MassEqualStates() {
+		
+	}
+	
 	@Override
 	public boolean equal(JSONObject s1, JSONObject s2) {
 

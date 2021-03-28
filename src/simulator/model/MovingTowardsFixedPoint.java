@@ -12,7 +12,18 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 	 * origen ~o = (0, 0). Técnicamente, para un cuerpo Bi , asumiendo que ~di es su
 	 * dirección, su aceleración debería ponerse a: −g · di .
 	 */
-
+	private Vector2D c;
+	private double g;
+	
+	public MovingTowardsFixedPoint() {
+		this.c = new Vector2D(); // [0,0]
+		this.g = 9.81;
+	}
+	public MovingTowardsFixedPoint(Vector2D c, double g) {
+		this.c = new Vector2D(c); // [0,0]
+		this.g = g;
+	}
+	
 	@Override
 	public void apply(List<Body> bs) {
 		// si tiene una aceleracion fija de 9.81 significa que 9.81=f/m por lo tanto

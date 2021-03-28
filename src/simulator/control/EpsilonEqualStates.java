@@ -10,8 +10,12 @@ public class EpsilonEqualStates implements StateComparator {
 	private double eps;
 	
 	//Constructora
-	EpsilonEqualStates(double eps){
+	public EpsilonEqualStates(double eps){
 		this.eps = eps;
+	}
+	
+	public EpsilonEqualStates(){
+		this.eps = 0.0;
 	}
 	
 	@Override
