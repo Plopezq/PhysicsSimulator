@@ -5,11 +5,13 @@ import org.json.JSONObject;
 public abstract class Builder<T> {
 
 	
-	private T objeto;
+	//private T objeto;
+	
 	public Builder(){
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public T createInstance(JSONObject info) {
 		//si la información suministrada por info es correcta, 
 		//entonces crea un objeto de tipo T
@@ -47,14 +49,13 @@ public abstract class Builder<T> {
 		/* devuelve un objeto JSON que sirve de plantilla para el 
 		 * correspondiente constructor, i.e., un valor válido para el parámetro de 
 		 * createInstance (ver getInfo() de Factory<T>).*/
-		
-		
-			return null;		
+			return this.createData();
+			//Deberia devolver un JSON distinto en funcion de la clase que lo llame, queda probarlo
 	}
 	
 	protected JSONObject createData(){
-		//TODO
-		return null;
+		return this.createData();
+		//Deberia entrar en los metodos de las hijas
 	}
 	
 	protected abstract Object createTheInstance(JSONObject info);

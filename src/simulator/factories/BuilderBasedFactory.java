@@ -8,18 +8,14 @@ import org.json.JSONObject;
 
 public class BuilderBasedFactory<T> implements Factory<T> {
 
-	List<Builder<T>> lista;
+	List<Builder<T>> constructores;
 
 	public BuilderBasedFactory(List<Builder<T>> listaBuilder) {
-		//super();
-		this.lista = listaBuilder;
-		//addTypesList();
+		this.constructores = listaBuilder;
+		for(Builder<T> b: constructores) {
+			b.createInstance(b.getBuilderInfo()); //Se crean ocn la plantilla que ellos mismos generan
+		}
 	}
-
-//	private void addTypesList() {
-//		lista.add(new Builder<T>() {});  
-//
-//	}
 
 	@Override
 	public T createInstance(JSONObject info) {
@@ -31,10 +27,8 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 		 * IllegalArgumentException.
 		 */
 
-		if (info.get("type").equals("basic"))
-			;
-
-		return null;
+		return (T) Builder<T>.createInstance(info);
+		
 	}
 
 	@Override
