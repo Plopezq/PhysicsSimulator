@@ -35,5 +35,11 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 			b.addForce(nueva_f.scale(-9.81));
 		}
 	}
+	
+	
+	@Override
+	public String toString() {
 
+		return null;
+	}
 }

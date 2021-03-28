@@ -2,6 +2,7 @@ package simulator.factories;
 
 import org.json.JSONObject;
 
+import simulator.misc.Vector2D;
 import simulator.model.ForceLaws;
 import simulator.model.NewtonUniversalGravitation;
 
@@ -26,8 +27,12 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 	
 
 	protected JSONObject createData(){
-		
-		//TODO
-		return null;
+		JSONObject force = new JSONObject();
+		force.put("type", "nlug");
+			JSONObject data = new JSONObject();
+			data.put("G", 6.67e10-11);
+		force.put("data", data);
+		force.put("desc", "Ley universal de la gravitacion de Newton");
+		return force;
 	}
 }

@@ -10,16 +10,16 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 
 	List<Builder<T>> lista;
 
-	public BuilderBasedFactory() {
-		super();
-		this.lista = new ArrayList<Builder<T>>();
-		addTypesList();
+	public BuilderBasedFactory(List<Builder<T>> listaBuilder) {
+		//super();
+		this.lista = listaBuilder;
+		//addTypesList();
 	}
 
-	private void addTypesList() {
-		lista.add(new Builder<T>() {});  
-
-	}
+//	private void addTypesList() {
+//		lista.add(new Builder<T>() {});  
+//
+//	}
 
 	@Override
 	public T createInstance(JSONObject info) {

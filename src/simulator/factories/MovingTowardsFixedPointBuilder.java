@@ -27,9 +27,14 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	
 
 	protected JSONObject createData(){
-		
-		//TODO
-		return null;
+		JSONObject force = new JSONObject();
+		force.put("type", "mtcp");
+			JSONObject data = new JSONObject();
+			data.put("c", new Vector2D(0,0));
+			data.put("g", 9.81);
+		force.put("data", data);
+		force.put("desc", "Movimiento hacia u punto fijo, la ley simula un escenario en el cual todos los cuerpos caen hacia el 'centro del universo'");
+		return force;
 	}
 	
 	

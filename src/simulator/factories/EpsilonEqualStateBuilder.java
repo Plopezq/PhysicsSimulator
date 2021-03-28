@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import simulator.control.EpsilonEqualStates;
 import simulator.control.StateComparator;
+import simulator.misc.Vector2D;
 import simulator.model.NewtonUniversalGravitation;
 
 public class EpsilonEqualStateBuilder extends Builder<StateComparator> {
@@ -27,8 +28,12 @@ public class EpsilonEqualStateBuilder extends Builder<StateComparator> {
 	
 	
 	protected JSONObject createData(){
-		
-		//TODO
-		return null;
+		JSONObject force = new JSONObject();
+		force.put("type", "epseq");
+			JSONObject data = new JSONObject();
+			data.put("eps", 0.1);
+		force.put("data", data);
+		force.put("desc", "Comparador de igualdad, modulo epsilon");
+		return force;
 	}
 }

@@ -3,6 +3,8 @@ package simulator.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import simulator.misc.Vector2D;
 
 public class NewtonUniversalGravitation implements ForceLaws {
@@ -37,5 +39,9 @@ public class NewtonUniversalGravitation implements ForceLaws {
 			bs.get(i).addForce(Fi);
 		}	
 	}
+	@Override
+	public String toString() {
 
+		return null;
+	}
 }

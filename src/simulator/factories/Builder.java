@@ -22,32 +22,24 @@ public abstract class Builder<T> {
 		//Comprobamos que el campo type del JSON es correcto
 		String aux = (String) info.get("type");
 		if(aux.equals("basic")) {
-			return (T) new BasicBodyBuilder().createInstance((JSONObject) info.get("type"));
+			return (T) new BasicBodyBuilder().createTheInstance(info.getJSONObject("data"));
 		}else if(aux.equals("mlb")) {
-			
+			return (T) new MassLosingBodyBuilder().createTheInstance(info.getJSONObject("data"));
 		}else if(aux.equals("nlug")) {
-			
+			return (T) new NewtonUniversalGravitationBuilder().createTheInstance(info.getJSONObject("data"));
 		}else if(aux.equals("mtcp")) {
-			
+			return (T) new MovingTowardsFixedPointBuilder().createTheInstance(info.getJSONObject("data"));
 		}else if(aux.equals("nf")) {
-			
+			return (T) new NoForceBuilder().createTheInstance(info.getJSONObject("data"));
 		}else if(aux.equals("masseq")) {
-			
+			return (T) new MassEqualStateBuider().createTheInstance(info.getJSONObject("data"));
 		}else if(aux.equals("epseq")) {
-			
-		}else {
-			//No hay ningun objeto de ese tipo
-			return null;
+			return (T) new EpsilonEqualStateBuilder().createTheInstance(info.getJSONObject("data"));
 		}
-		
-		
+			
+		//No hay ningun objeto de ese tipo
+			return null;
 		//Comprobamos los valores de la seccion data son correctos --> eso se hara en el propio objeto
-		
-		
-		
-		
-		
-		return null;
 	}
 	
 	public JSONObject getBuilderInfo() {
@@ -57,9 +49,7 @@ public abstract class Builder<T> {
 		 * createInstance (ver getInfo() de Factory<T>).*/
 		
 		
-		
-		
-		return null;
+			return null;		
 	}
 	
 	protected JSONObject createData(){
