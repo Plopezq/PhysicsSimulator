@@ -11,10 +11,7 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 	List<Builder<T>> constructores;
 
 	public BuilderBasedFactory(List<Builder<T>> listaBuilder) {
-		this.constructores = listaBuilder;
-		for(Builder<T> b: constructores) {
-			b.createInstance(b.getBuilderInfo()); //Se crean ocn la plantilla que ellos mismos generan
-		}
+		this.constructores = new ArrayList<>(listaBuilder);
 	}
 
 	@Override
@@ -26,9 +23,12 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 		 * caso de que info sea incorrecto, entonces lanza una excepción del tipo
 		 * IllegalArgumentException.
 		 */
-
-		return (T) Builder<T>.createInstance(info);
-		
+		T obj;
+		for(Builder<T> build : this.constructores) {
+			obj = build.createInstance(info);
+			if (obj != null) return obj;
+		}
+		return null;
 	}
 
 	@Override
