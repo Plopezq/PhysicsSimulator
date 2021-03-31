@@ -40,7 +40,7 @@ public abstract class Builder<T> {
 		}
 			
 		//No hay ningun objeto de ese tipo
-			return null;
+		throw new IllegalArgumentException();
 		//Comprobamos los valores de la seccion data son correctos --> eso se hara en el propio objeto
 	}
 	

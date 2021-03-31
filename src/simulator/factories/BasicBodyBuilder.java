@@ -23,8 +23,8 @@ public class BasicBodyBuilder extends Builder<Body>{
 		body.put("type", "basic");
 			JSONObject data = new JSONObject();
 			data.put("id", "b1");
-			data.put("p", new Vector2D(0,0));
-			data.put("v", new Vector2D(0.05e04, 0));
+			data.put("p", new Vector2D(0,0).toString());
+			data.put("v", new Vector2D(0.05e04, 0).toString());
 			data.put("m", 5.97e24);
 		body.put("data", data);
 		body.put("desc", "Cuerpo basico que representa una entidad fisica");

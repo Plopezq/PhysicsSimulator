@@ -23,10 +23,14 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 		 * caso de que info sea incorrecto, entonces lanza una excepción del tipo
 		 * IllegalArgumentException.
 		 */
-		T obj;
-		for(Builder<T> build : this.constructores) {
-			obj = build.createInstance(info);
-			if (obj != null) return obj;
+		try {
+			T obj;
+			for(Builder<T> build : this.constructores) {
+				obj = build.createInstance(info);
+				if (obj != null) return obj;
+			}
+		}catch( IllegalArgumentException exp){
+				System.out.println("Argumento info INCORRECTO");
 		}
 		return null;
 	}
@@ -41,8 +45,12 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 		 * mucho sobre la factoría en si misma. Por ejemplo, utilizaremos este método
 		 * cuando mostremos al usuario los posibles valores de las leyes de la gravedad.
 		 */
-
-		return null;
+		List<JSONObject> lista = new ArrayList<JSONObject>();
+		for(Builder<T> build : this.constructores) {
+			JSONObject aux = build.getBuilderInfo();
+			lista.add(aux);
+		}
+		return lista;
 	}
 
 }

@@ -25,8 +25,8 @@ public class MassLosingBodyBuilder extends Builder<Body> {
 		body.put("type", "mlb");
 			JSONObject data = new JSONObject();
 			data.put("id", "b1");
-			data.put("p", new Vector2D(-3.5e10,0));
-			data.put("v", new Vector2D(0, 1.4e03));
+			data.put("p", new Vector2D(-3.5e10,0).toString());
+			data.put("v", new Vector2D(0, 1.4e03).toString());
 			data.put("m", 3.08e28);
 			data.put("freq", 1e3);
 			data.put("factor", 1e-3);
