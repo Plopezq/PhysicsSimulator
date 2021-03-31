@@ -30,22 +30,22 @@ public class Vector2D {
 	}
 
 	// return the length of the vector
-	public double magnitude() {
+	public double magnitude() { //LONGITUD -> operacion modulo
 		return Math.sqrt(dot(this));
 	}
 
 	// return the distance between this and that
-	public double distanceTo(Vector2D that) {
+	public double distanceTo(Vector2D that) { //DISTANCIA
 		return minus(that).magnitude();
 	}
 
 	// create and return a new object whose value is (this + that)
-	public Vector2D plus(Vector2D that) {
+	public Vector2D plus(Vector2D that) { //SUMA
 		return new Vector2D(_x + that._x, _y + that._y);
 	}
 
 	// create and return a new object whose value is (this - that)
-	public Vector2D minus(Vector2D that) {
+	public Vector2D minus(Vector2D that) { //RESTA
 		return new Vector2D(_x - that._x, _y - that._y);
 	}
 
@@ -59,12 +59,12 @@ public class Vector2D {
 	}
 
 	// create and return a new object whose value is (this * factor)
-	public Vector2D scale(double factor) {
+	public Vector2D scale(double factor) { //MULTIPLICACION ESCALAR
 		return new Vector2D(_x * factor, _y * factor);
 	}
 
 	// return the corresponding unit vector
-	public Vector2D direction() {
+	public Vector2D direction() { //DIRECCION
 		if (magnitude() > 0.0)
 			return scale(1.0 / magnitude());
 		else

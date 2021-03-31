@@ -6,16 +6,19 @@ import java.util.List;
 import org.json.JSONObject;
 
 public class PhysicsSimulator {
-	protected List<Body> bodies;
-	protected double tiempo_paso;
-	protected double tiempo_actual;
-	protected ForceLaws ley;
+	private List<Body> bodies;
+	private double tiempo_actual;
+	private double tiempo_paso; //tiempo real por paso
+	//representa el tiempo (en segundos) que corresponde 
+	//a un paso de simulación — se pasará al método move de los cuerpos. 
+	//Debe lanzar una excepción IllegalArgumentException en caso de que el valor no sea válido.
+	private ForceLaws leyes;
 
-	public PhysicsSimulator(double tiempo_paso, ForceLaws ley) {
-		if (tiempo_paso < 0.0 || ley == null)
+	public PhysicsSimulator(double tiempo_paso, ForceLaws leyes) {
+		if (tiempo_paso < 0.0 || leyes == null)
 			throw new IllegalArgumentException();
 		this.tiempo_paso = tiempo_paso;
-		this.ley = ley;
+		this.leyes = leyes;
 
 		this.tiempo_actual = 0.0;
 		this.bodies = new ArrayList<>();
@@ -33,12 +36,12 @@ public class PhysicsSimulator {
 			body.resetForce();
 		}
 		
-		ley.apply(bodies);
+		this.leyes.apply(bodies);
 
 		for (Body body : bodies) {
-			body.move(tiempo_paso);
+			body.move(this.tiempo_paso);
 		}
-		tiempo_actual += tiempo_paso;
+		this.tiempo_actual += this.tiempo_paso;
 
 	}
 
@@ -51,12 +54,12 @@ public class PhysicsSimulator {
 
 	public JSONObject getState() {
 		JSONObject stateJSON = new JSONObject(this);
-		return stateJSON;	
+		return stateJSON;
+		//TODO --> ver pagina 9, creo que no sera asi
 	}
 
 	@Override
 	public String toString() {
-
 		return getState().toString();
 	}
 

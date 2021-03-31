@@ -12,13 +12,12 @@ public class NoForce  implements ForceLaws {
 	@Override
 	public void apply(List<Body> bs) {
 		// No hace nada, es decir, los cuerpos
-		// se mueven con un aceleracion fija
+		// se mueven con una aceleracion nula 
 		
 	}
 	
 	@Override
 	public String toString() {
-
 		return null;
 	}
 

@@ -17,10 +17,10 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 	
 	public MovingTowardsFixedPoint() {
 		this.c = new Vector2D(); // [0,0]
-		this.g = 9.81;
+		this.g = -9.81;
 	}
 	public MovingTowardsFixedPoint(Vector2D c, double g) {
-		this.c = new Vector2D(c); // [0,0]
+		this.c = new Vector2D(c);
 		this.g = g;
 	}
 	
@@ -30,12 +30,13 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 		// f=9.81m
 
 		for (Body b : bs) {
-			Vector2D nueva_f = new Vector2D(b.m, b.m);
-			b.resetForce();
-			b.addForce(nueva_f.scale(-9.81));
+			Vector2D dir = this.c.minus(b.p);
+			Vector2D Fi = dir.scale(b.m/this.g);
+			//b.resetForce();
+			b.addForce(Fi);
+			//Esto provocará que el cuerpo bi se mueva hacia ~c con una aceleración g.
 		}
 	}
-	
 	
 	@Override
 	public String toString() {

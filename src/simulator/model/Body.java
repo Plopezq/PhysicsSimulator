@@ -8,11 +8,11 @@ import simulator.misc.Vector2D;
 public class Body {
 	
 	//Atributos
-	protected String id;
-	protected Vector2D v; //Vector velocidad
-	protected Vector2D f; //Vector de fuerza
-	protected Vector2D p; //Vector de posicion
-	protected double m; //Masa del cuerpo
+	protected String id;	// Identificador
+	protected Vector2D v; // Vector velocidad
+	protected Vector2D f; // Vector de fuerza
+	protected Vector2D p; // Vector de posicion
+	protected double m; // Masa del cuerpo
 	
 	//Constructora
 	public Body(String id,Vector2D v, Vector2D p, Double m ){
@@ -20,7 +20,7 @@ public class Body {
 		this.v = v;
 		this.p = p;
 		this.m = m;
-		this.f = new Vector2D();
+		this.f = new Vector2D(); // [0,0]
 	}
 	
 	//Metodos
@@ -30,9 +30,9 @@ public class Body {
 	public Vector2D getVelocity() { //devuelve el vector de velocidad.
 		return this.v;
 	}
-	public void setVelocity(Vector2D v) {
-		this.v = v;
-	}
+//	public void setVelocity(Vector2D v) {
+//		this.v = v;
+//	}
 	public Vector2D getForce() {// devuelve el vector de fuerza.
 		return this.f;
 	}
@@ -42,18 +42,21 @@ public class Body {
 	public double getMass() { //devuelve la masa del cuerpo.
 		return this.m;
 	}
+	//PACKAGE PROTECTED
 	void addForce(Vector2D f) {
 	//añade la fuerza f al vector de fuerza del cuerpo 
 		//(usando el método plus de la clase Vector2D).
 		this.f = this.f.plus(f);
 	}
+	//PACKAGE PROTECTED
 	void resetForce() { //pone el valor del vector de fuerza a (0, 0).
 		this.f = new Vector2D(); //		_x = _y = 0.0;
 	}
 	void move(double t) { // mueve el cuerpo durante t segundos utilizando los atributos del mismo.
 		//VER pagina 4 abajo
-			//	1.Calculamos la aceleracion usando las leyes de newton--> a = f/m
-			Vector2D a = this.f.scale(1/t);
+			//	1.Calculamos la aceleracion usando las leyes de newton--> aceleracion = fuerza/masa
+			Vector2D a = this.f.scale(1/this.m);
+				if(this.m == 0) a = new Vector2D(); //pongo la aceleracion a 0 si la masa es 0
 			// 2.Cambiamos la posicion a p+v*t + 1/2 * a *t2 
 			this.p = this.p.plus(this.v.scale(t)).plus(a.scale(1/2*t*t));
 			//y la velocidad a v + a*t
@@ -104,8 +107,5 @@ public class Body {
 		return true;
 	}
 
-	public static void main() {//TODO -> eliminar
-		//Make some test in the future
-	}
-	
+
 }
