@@ -40,8 +40,9 @@ public abstract class Builder<T> {
 		}
 			
 		//No hay ningun objeto de ese tipo
-		throw new IllegalArgumentException();
+		return null;
 		//Comprobamos los valores de la seccion data son correctos --> eso se hara en el propio objeto
+		//TODO
 	}
 	
 	public JSONObject getBuilderInfo() {

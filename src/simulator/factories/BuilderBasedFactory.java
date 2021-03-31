@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 public class BuilderBasedFactory<T> implements Factory<T> {
 
-	List<Builder<T>> constructores;
+	List<Builder<T>> constructores; //Lista de constructores
 
 	public BuilderBasedFactory(List<Builder<T>> listaBuilder) {
 		this.constructores = new ArrayList<>(listaBuilder);
@@ -23,16 +23,16 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 		 * caso de que info sea incorrecto, entonces lanza una excepción del tipo
 		 * IllegalArgumentException.
 		 */
-		try {
-			T obj;
-			for(Builder<T> build : this.constructores) {
-				obj = build.createInstance(info);
-				if (obj != null) return obj;
-			}
-		}catch( IllegalArgumentException exp){
-				System.out.println("Argumento info INCORRECTO");
+//		El método createInstance de la factoría ejecuta los constructores uno a uno 
+//		hasta que encuentre el constructor capaz de crear el objeto correspondiente — 
+//		debe lanzar una excepcion IllegalArgumentException en caso de fallo.
+		T obj = null;
+		for(Builder<T> build : this.constructores) {
+			obj = build.createInstance(info);
+			if (obj != null) return obj;
+			else throw new IllegalArgumentException();
 		}
-		return null;
+		return obj;
 	}
 
 	@Override
@@ -45,6 +45,7 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 		 * mucho sobre la factoría en si misma. Por ejemplo, utilizaremos este método
 		 * cuando mostremos al usuario los posibles valores de las leyes de la gravedad.
 		 */
+		// El método getInfo() devuelve en una lista las estructuras JSON devueltas por getBuilderInfo().
 		List<JSONObject> lista = new ArrayList<JSONObject>();
 		for(Builder<T> build : this.constructores) {
 			JSONObject aux = build.getBuilderInfo();
