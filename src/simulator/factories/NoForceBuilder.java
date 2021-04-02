@@ -19,5 +19,14 @@ public class NoForceBuilder extends Builder<ForceLaws>{
 		this.fuerza = new NoForce();
 		return this.fuerza;
 	}
+	
+	protected JSONObject createData(){
+		JSONObject force = new JSONObject();
+		force.put("type", "nf");
+			JSONObject data = new JSONObject();
+		force.put("data", data);
+		force.put("desc", "Ley sin fuerza");
+		return force;
+	}
 
 }
