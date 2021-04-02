@@ -1,5 +1,7 @@
 package simulator.launcher;
 
+import java.util.ArrayList;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -11,8 +13,17 @@ import org.json.JSONObject;
 
 import simulator.control.StateComparator;
 import simulator.factories.Factory;
+import simulator.factories.MassEqualStateBuider;
+import simulator.factories.MassLosingBodyBuilder;
+import simulator.factories.MovingTowardsFixedPointBuilder;
+import simulator.factories.NewtonUniversalGravitationBuilder;
+import simulator.factories.NoForceBuilder;
 import simulator.model.Body;
 import simulator.model.ForceLaws;
+import simulator.factories.BasicBodyBuilder;
+import simulator.factories.Builder;
+import simulator.factories.BuilderBasedFactory;
+import simulator.factories.EpsilonEqualStateBuilder;
 
 public class Main {
 
@@ -36,10 +47,31 @@ public class Main {
 
 	private static void init() {
 		// TODO initialize the bodies factory
-
+		ArrayList<Builder<Body>> bodyBuilders = new ArrayList<>();
+		bodyBuilders.add(new BasicBodyBuilder());
+		bodyBuilders.add(new MassLosingBodyBuilder());
+		_bodyFactory = new BuilderBasedFactory<Body>(bodyBuilders);
+		
 		// TODO initialize the force laws factory
-
+		ArrayList<Builder<ForceLaws>> forceBuilders = new ArrayList<>();
+		forceBuilders.add(new NoForceBuilder());
+		forceBuilders.add(new MovingTowardsFixedPointBuilder());
+		forceBuilders.add(new NewtonUniversalGravitationBuilder());
+		_forceLawsFactory = new BuilderBasedFactory<ForceLaws>(forceBuilders);
+		
 		// TODO initialize the state comparator
+		ArrayList<Builder<StateComparator>> stateBuilder = new ArrayList<>();
+		stateBuilder.add(new EpsilonEqualStateBuilder());
+		stateBuilder.add(new MassEqualStateBuider());
+		_stateComparatorFactory = new BuilderBasedFactory<StateComparator>(stateBuilder);
+		
+		/*
+		 * Completa el método init() para crear e inicializar las factorías (atributos
+		 * _bodyFactory, _forceLawsFactory, y _stateComparator-Factory) –
+		 * revisa la información que aparece al final de la Sección 5.5, donde hay un
+		 * ejemplo de código. *
+		 */
+
 	}
 
 	private static void parseArgs(String[] args) {
