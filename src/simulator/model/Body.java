@@ -64,9 +64,14 @@ public class Body {
 	}
 	public JSONObject getState() {
 		//{ “id": id, "m": m, "p": p~, "v": ~v , "f": f }
-		JSONObject stateJSON = new JSONObject(this);//The key is formed by removing the "get" or "is"prefix. 
-		return stateJSON;							//If the second remaining character is not upper case, then 
-													//thefirst character is converted to lower case. 
+		JSONObject stateJSON = new JSONObject();
+		stateJSON.put("id", this.getId());
+		stateJSON.put("m", this.getMass());
+		stateJSON.put("p", this.getPosition().toString());
+		stateJSON.put("v", this.getVelocity().toString());
+		stateJSON.put("f", this.getForce().toString());
+
+		
 	/*Maybe we have to do like this : 
 	 * TODO
 	 * // we put some keys with simple values into 'jo1'
@@ -74,7 +79,7 @@ public class Body {
 		jo1.put("b", 123.3e-10);
 		jo1.put("c", "Hollaaa");
 	 */
-	
+		return stateJSON;	
 	}
 	
 	public String toString() { //devuelve getState().toString().

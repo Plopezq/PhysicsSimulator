@@ -49,22 +49,25 @@ public class Controller {
 		// utilizando el siguiente formato JSON: { "states": [s0 ,s1 ,...,sn ] }
 		
 	  	PrintStream p = new PrintStream(out);
-		p.println("{"); p.println("\"states\": [");
-		p.print(simulador.getState()); p.print(","); //estado s0 --> estado inicial del simulador
+		p.print("{"); p.println("\"states\": [");
+		p.println(simulador.getState()); p.print(","); //estado s0 --> estado inicial del simulador
 
-		if ( ! cmp.equal(estados.getJSONObject(0), this.simulador.getState()) ) { //Comparamos el estado inicial
-			throw new DifferentStatesException(0); //Los estados NO son iguales
+		if(expOut != null) { //Si tenemos archivo con el que comparar, comparamos
+			if ( ! cmp.equal(estados.getJSONObject(0), this.simulador.getState()) ) { //Comparamos el estado inicial
+				throw new DifferentStatesException(0); //Los estados NO son iguales
+			}
 		}
-		
 		// run the sumulation n steps, etc.
 		for(int i = 1; i <= n; i++) {
 			this.simulador.advance(); //ejecutamos un paso de simulacion
-			p.print(this.simulador.getState()); p.print(",");
+			p.println(this.simulador.getState()); p.print(",");
 			
 			//En cada paso de simulacion, debo comparar el estado actual, con el esperado 
 			// usando el comparador que me proporcionan
-			if ( ! cmp.equal(estados.getJSONObject(i), this.simulador.getState()) ) { 
-				throw new DifferentStatesException(0); //Los estados NO son iguales
+			if(expOut != null) { //Si tenemos archivo con el que comparar, comparamos
+				if ( ! cmp.equal(estados.getJSONObject(i), this.simulador.getState()) ) { 
+					throw new DifferentStatesException(0); //Los estados NO son iguales
+				}
 			}
 		}
 		p.println("]"); p.println("}");

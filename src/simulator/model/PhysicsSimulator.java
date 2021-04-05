@@ -3,6 +3,7 @@ package simulator.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class PhysicsSimulator {
@@ -53,9 +54,17 @@ public class PhysicsSimulator {
 	}
 
 	public JSONObject getState() {
-		JSONObject stateJSON = new JSONObject(this);
+		JSONObject stateJSON = new JSONObject();
+		stateJSON.put("time", this.tiempo_actual);
+		
+		JSONArray ja = new JSONArray();
+		for(int i = 0 ; i < bodies.size(); i++) {
+			ja.put(bodies.get(i).getState());
+		}
+		stateJSON.put("bodies", ja);
+		
+		
 		return stateJSON;
-		//TODO --> ver pagina 9, creo que no sera asi
 	}
 
 	@Override
