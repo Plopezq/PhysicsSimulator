@@ -49,7 +49,7 @@ public class Controller {
 		// utilizando el siguiente formato JSON: { "states": [s0 ,s1 ,...,sn ] }
 		
 	  	PrintStream p = new PrintStream(out);
-		p.print("{"); p.println("\"states\": [");
+		p.println("{"); p.println("\"states\": [");
 		p.println(simulador.getState()); p.print(","); //estado s0 --> estado inicial del simulador
 
 		if(expOut != null) { //Si tenemos archivo con el que comparar, comparamos

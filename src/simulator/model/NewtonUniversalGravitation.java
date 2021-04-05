@@ -31,7 +31,7 @@ public class NewtonUniversalGravitation implements ForceLaws {
 				
 				double fij = G * (numerador)/(denominador);
 				
-				Vector2D Fij = dist.scale(fij);
+				Vector2D Fij = new Vector2D(dist.scale(fij));
 				
 				Fi = Fi.plus(Fij); //Le sumo las fuerzas que se le aplican
 			}
