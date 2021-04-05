@@ -17,7 +17,7 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws>{
 
 	@Override
 	protected Object createTheInstance(JSONObject info) {
-		if (info == null) {
+		if (info.isEmpty()) {
 			this.fuerza = new NewtonUniversalGravitation();	
 		}else {
 			this.fuerza = new NewtonUniversalGravitation(info.getDouble("G"));	

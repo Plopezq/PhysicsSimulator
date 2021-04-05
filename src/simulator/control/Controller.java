@@ -18,6 +18,7 @@ public class Controller {
 //	y añadirlos al simulador; 
 //	(2) ejecutar el simulador un número determinado de pasos y 
 //	mostrar los diferentes estados de cada paso en un OutputStream dado.
+	
 	private PhysicsSimulator simulador; //Se usara para ejecutar las diferentes operaciones
 	private Factory<Body> factoria; //Se usara para construir los cuerpos que se leen del fichero
 	

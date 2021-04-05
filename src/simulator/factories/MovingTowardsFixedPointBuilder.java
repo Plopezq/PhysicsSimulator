@@ -19,7 +19,8 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 		if(info == null) {
 			this.fuerza = new MovingTowardsFixedPoint();
 		}else {
-			this.fuerza = new MovingTowardsFixedPoint((Vector2D)info.get("c"), info.getDouble("g"));
+			Vector2D c = new Vector2D(info.getJSONArray("c").getDouble(0), info.getJSONArray("c").getDouble(1));
+			this.fuerza = new MovingTowardsFixedPoint(c, info.getDouble("g"));
 		}
 		
 		return this.fuerza;

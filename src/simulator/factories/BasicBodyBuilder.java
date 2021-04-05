@@ -1,5 +1,7 @@
 package simulator.factories;
 import simulator.misc.Vector2D;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import simulator.model.Body;
@@ -14,7 +16,9 @@ public class BasicBodyBuilder extends Builder<Body>{
 	
 	@Override
 	protected Body createTheInstance(JSONObject info){
-		this.cuerpo = new Body(info.getString("id"),(Vector2D)info.get("v"), (Vector2D)info.get("p") ,info.getDouble("m"));
+	Vector2D v = new Vector2D(info.getJSONArray("v").getDouble(0), info.getJSONArray("v").getDouble(1));
+	Vector2D p = new Vector2D(info.getJSONArray("p").getDouble(0), info.getJSONArray("p").getDouble(1));
+		this.cuerpo = new Body(info.getString("id"),v, p ,info.getDouble("m"));
 		return this.cuerpo;
 	}
 	

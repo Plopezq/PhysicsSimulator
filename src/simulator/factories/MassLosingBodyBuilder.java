@@ -16,7 +16,9 @@ public class MassLosingBodyBuilder extends Builder<Body> {
 
 	@Override
 	protected Object createTheInstance(JSONObject info) {
-		this.cuerpo = new MassLossingBody(info.getString("id"),(Vector2D)info.get("v"),(Vector2D)info.get("p"),info.getDouble("m"),info.getDouble("factor"),info.getDouble("freq"));
+		Vector2D v = new Vector2D(info.getJSONArray("v").getDouble(0), info.getJSONArray("v").getDouble(1));
+		Vector2D p = new Vector2D(info.getJSONArray("p").getDouble(0), info.getJSONArray("p").getDouble(1));
+		this.cuerpo = new MassLossingBody(info.getString("id"),v,p,info.getDouble("m"),info.getDouble("factor"),info.getDouble("freq"));
 		return cuerpo;
 	}
 	

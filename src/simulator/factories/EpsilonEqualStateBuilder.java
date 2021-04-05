@@ -18,7 +18,7 @@ public class EpsilonEqualStateBuilder extends Builder<StateComparator> {
 	
 	@Override
 	protected Object createTheInstance(JSONObject info) {
-		if (info == null) {
+		if (info.isEmpty()) {
 			this.comparador = new EpsilonEqualStates();	
 		}else {
 			this.comparador = new EpsilonEqualStates(info.getDouble("eps"));	

@@ -61,17 +61,20 @@ public class Main {
 	private static Factory<StateComparator> _stateComparatorFactory;
 
 	private static void init() {
+		//Inicializacion de los builders
 		ArrayList<Builder<Body>> bodyBuilders = new ArrayList<>();
 		bodyBuilders.add(new BasicBodyBuilder());
 		bodyBuilders.add(new MassLosingBodyBuilder());
 		_bodyFactory = new BuilderBasedFactory<Body>(bodyBuilders);
 		
+		//Inicializacion de las leyes de fuerza
 		ArrayList<Builder<ForceLaws>> forceBuilders = new ArrayList<>();
 		forceBuilders.add(new NoForceBuilder());
 		forceBuilders.add(new MovingTowardsFixedPointBuilder());
 		forceBuilders.add(new NewtonUniversalGravitationBuilder());
 		_forceLawsFactory = new BuilderBasedFactory<ForceLaws>(forceBuilders);
 		
+		//Inicializacion de los comparadores de estado
 		ArrayList<Builder<StateComparator>> stateBuilder = new ArrayList<>();
 		stateBuilder.add(new EpsilonEqualStateBuilder());
 		stateBuilder.add(new MassEqualStateBuider());
@@ -139,11 +142,11 @@ public class Main {
 		//  add support for -o, -eo, and -s (add corresponding information to
 		// cmdLineOptions)
 		cmdLineOptions.addOption(Option.builder("o").longOpt("output").hasArg()
-				.desc("Output file, where output is written.\n" + "Default value: the standard output").build());
+				.desc("Output file, where output is written. " + "Default value: the standard output").build());
 		cmdLineOptions.addOption(Option.builder("eo").longOpt("expected-output").hasArg()
-				.desc(" The expected output file. If not provided no comparison is applied.").build());
+				.desc("The expected output file. If not provided no comparison is applied.").build());
 		cmdLineOptions.addOption(Option.builder("s").longOpt("steps").hasArg()
-				.desc("An integer representing the number of simulation steps.\nDefault value: 150.").build());
+				.desc("An integer representing the number of simulation steps. Default value: 150.").build());
 
 		// delta-time
 		cmdLineOptions.addOption(Option.builder("dt").longOpt("delta-time").hasArg().desc(
@@ -296,6 +299,8 @@ public class Main {
 		 * línea de comandos, entonces se utiliza la salida por consola, i.e.,
 		 * System.out para mostrar la salida.
 		 */
+		//Hecho mas abajo
+		
 		
 		/*
 		 * cree un comparador de estados de acuerdo con la información que aparece en la
