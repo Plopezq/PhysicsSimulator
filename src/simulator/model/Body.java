@@ -30,9 +30,9 @@ public class Body {
 	public Vector2D getVelocity() { //devuelve el vector de velocidad.
 		return this.v;
 	}
-//	public void setVelocity(Vector2D v) {
-//		this.v = v;
-//	}
+	public void setVelocity(Vector2D v) {
+		this.v = v;
+	}
 	public Vector2D getForce() {// devuelve el vector de fuerza.
 		return this.f;
 	}
