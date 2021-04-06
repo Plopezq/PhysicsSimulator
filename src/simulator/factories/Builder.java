@@ -29,7 +29,7 @@ public abstract class Builder<T> {
 			return (T) new MassLosingBodyBuilder().createTheInstance(info.getJSONObject("data"));
 		}else if(aux.equals("nlug")) {
 			return (T) new NewtonUniversalGravitationBuilder().createTheInstance(info.getJSONObject("data"));
-		}else if(aux.equals("mtcp")) {
+		}else if(aux.equals("mtfp")) {
 			return (T) new MovingTowardsFixedPointBuilder().createTheInstance(info.getJSONObject("data"));
 		}else if(aux.equals("nf")) {
 			return (T) new NoForceBuilder().createTheInstance(info.getJSONObject("data"));

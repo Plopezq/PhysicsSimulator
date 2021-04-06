@@ -16,7 +16,7 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	@Override
 	protected Object createTheInstance(JSONObject info) {
 		//Las claves c y g son opcionales
-		if(info == null) {
+		if(info.isEmpty()) {
 			this.fuerza = new MovingTowardsFixedPoint();
 		}else {
 			Vector2D c = new Vector2D(info.getJSONArray("c").getDouble(0), info.getJSONArray("c").getDouble(1));
@@ -29,7 +29,7 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 
 	protected JSONObject createData(){
 		JSONObject force = new JSONObject();
-		force.put("type", "mtcp");
+		force.put("type", "mtfp");
 			JSONObject data = new JSONObject();
 			data.put("c", new Vector2D(0,0).toString());
 			data.put("g", 9.81);

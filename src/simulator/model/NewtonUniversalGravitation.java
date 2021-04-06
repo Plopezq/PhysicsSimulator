@@ -15,35 +15,37 @@ public class NewtonUniversalGravitation implements ForceLaws {
 		this.G = G;
 	}
 	public NewtonUniversalGravitation() {
-		this.G = Math.pow(6.67, -11);
+		this.G = 6.67E-11;
 	}
 	
 
 	@Override
 	public void apply(List<Body> bs) {
-		for(int i = 0; i < bs.size(); i++) { //	Primer cuerpo que recibe las fuerzas 
+			//Dos cuerpos se aplican una fuerza, uno sobre otro --> dos bucles for
+		for(int i = 0; i < bs.size(); i++) {
 			Vector2D Fi = new Vector2D(0,0); //Sumatorio de la fuerza que aplican todos los cuerpos j sobre i
-			for(int j = 0; j < bs.size(); j++) { //	de todos estos cuerpos, menos de el mismo
-				if (i != j && (bs.get(i).m != 0) ) {
-					double G = Math.pow(6.67, -11);
-					double numerador = bs.get(i).getMass() * bs.get(j).getMass();
-					Vector2D dist = bs.get(j).getPosition().minus(bs.get(i).getPosition());
-					double denominador = Math.pow(bs.get(j).getPosition().distanceTo(bs.get(i).getPosition()), 2);
-					
-					double fij = G * (numerador)/(denominador);
-					
-					Vector2D Fij = new Vector2D(dist.scale(fij));
-					
-					Fi = Fi.plus(Fij); //Le sumo las fuerzas que se le aplican
-				}
-				if(bs.get(i).m == 0) {
-					bs.get(i).setVelocity(new Vector2D()); //velocidad a 0
-					bs.get(i).resetForce(); //aceleracion a 0
+			for(int j = 0; j < bs.size(); j++) {
+				if(i != j) { //NO se aplica la fuerza sobre si mismo
+					if(bs.get(i).m == 0) { //si la masa de i es 0, la aceleracion y la velocidad valen 0
+						bs.get(i).setVelocity(new Vector2D());
+					}else {//Si la masa NO es 0, calculamos Fi
+						double denominador = bs.get(j).getPosition().distanceTo(bs.get(i).getPosition());
+						if(denominador == 0) {
+							double fij = 0;
+						}
+						if(denominador > 0){
+							double numerador = bs.get(i).getMass() * bs.get(j).getMass();
+							Vector2D dist = bs.get(i).getPosition().minus(bs.get(j).getPosition());
+							double fij = this.G * (numerador)/(Math.pow(denominador, 2));
+							Vector2D Fij = new Vector2D(dist.scale(fij));
+							Fi = Fi.plus(Fij); //Le sumo la fuerza que se le aplican
+						}
+					}
 				}
 			}
-			//Modifico su aceleracion
-			bs.get(i).addForce(Fi);
-		}	
+			//En caso de ser el mismo, se sumaria 0,0
+			bs.get(i).addForce(Fi); //Modifico su aceleracion
+		}
 	}
 	@Override
 	public String toString() {
