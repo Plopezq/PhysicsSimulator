@@ -50,7 +50,7 @@ public class Controller {
 		
 	  	PrintStream p = new PrintStream(out);
 		p.println("{"); p.println("\"states\": [");
-		p.println(simulador.getState()); p.print(","); //estado s0 --> estado inicial del simulador
+		p.println(simulador.getState()); //estado s0 --> estado inicial del simulador
 
 		if(expOut != null) { //Si tenemos archivo con el que comparar, comparamos
 			if ( ! cmp.equal(estados.getJSONObject(0), this.simulador.getState()) ) { //Comparamos el estado inicial
@@ -59,9 +59,9 @@ public class Controller {
 		}
 		// run the sumulation n steps, etc.
 		for(int i = 1; i <= n; i++) {
+			p.print(",");
 			this.simulador.advance(); //ejecutamos un paso de simulacion
-			p.println(this.simulador.getState()); p.print(",");
-			
+			p.println(this.simulador.getState());
 			//En cada paso de simulacion, debo comparar el estado actual, con el esperado 
 			// usando el comparador que me proporcionan
 			if(expOut != null) { //Si tenemos archivo con el que comparar, comparamos

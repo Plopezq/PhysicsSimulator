@@ -55,12 +55,30 @@ public class Body {
 	void move(double t) { // mueve el cuerpo durante t segundos utilizando los atributos del mismo.
 		//VER pagina 4 abajo
 			//	1.Calculamos la aceleracion usando las leyes de newton--> aceleracion = fuerza/masa
+			System.out.println("FUERZA");	
+			System.out.println(this.f);
 			Vector2D a = this.f.scale(1/this.m);
-				if(this.m == 0) a = new Vector2D(); //pongo la aceleracion a 0 si la masa es 0
-			// 2.Cambiamos la posicion a p+v*t + 1/2 * a *t2 
-			this.p = this.p.plus(this.v.scale(t)).plus(a.scale(1/2*t*t));
-			//y la velocidad a v + a*t
-			this.v = this.v.plus(a.scale(t));
+			//System.out.println(a);
+			if(this.m == 0) {
+				a = new Vector2D(); //pongo la aceleracion a 0 si la masa es 0
+			}else {
+				// 2.Cambiamos la posicion a p + v*t + 1/2 * a *t2
+				Vector2D aux1 = this.v.scale(t); // v * t
+				//System.out.println(t);
+				double t2 = t*t; //t2
+
+				Vector2D aux2 = a.scale(0.5); // 1/2 * a
+				//System.out.println(aux2);
+
+				Vector2D aux3 = aux2.scale(t2);
+				
+				this.p = this.p.plus(aux1);
+				this.p = this.p.plus(aux3);
+
+				//y la velocidad a v + a*t
+				this.v = this.v.plus(a.scale(t));
+			}
+
 	}
 	public JSONObject getState() {
 		//{ “id": id, "m": m, "p": p~, "v": ~v , "f": f }

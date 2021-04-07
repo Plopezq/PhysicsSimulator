@@ -33,7 +33,7 @@ public class PhysicsSimulator {
 		 * 4. finalmente incrementa el tiempo actual en dt segundos.
 		 */
 
-		for (Body body : bodies) {
+		for (Body body :bodies) {
 			body.resetForce();
 		}
 		
