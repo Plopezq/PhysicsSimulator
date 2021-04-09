@@ -67,8 +67,7 @@ public class Body {
 		Vector2D a = new Vector2D(); // pongo la aceleracion a 0 si la masa es 0
 
 		if (this.m != 0) {
-			double aux = 1 / this.m;
-			a = this.f.scale(aux);
+			a = this.f.scale(1 / this.m);
 		}
 		// 2.Cambiamos la posicion a p + v*t + 1/2 * a *t2
 		this.p = this.p.plus((this.v.scale(t)).plus(a.scale(t * t * 0.5)));
