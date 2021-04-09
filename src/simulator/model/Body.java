@@ -65,39 +65,40 @@ public class Body {
 		// fuerza/masa
 		// System.out.println("FUERZA");
 		// System.out.println(this.f);
-		System.out.println("f: " + f);
-		System.out.println("m: " + m);
-		System.out.println("v: " + v);
+//		System.out.println("f: " + f);
+//		System.out.println("m: " + m);
+//		System.out.println("v: " + v);
 
 		Vector2D a = new Vector2D(); // pongo la aceleracion a 0 si la masa es 0
 
 		if (this.m != 0) {
-			a = this.f.scale(1 / this.m);
+			double aux = 1 / this.m;
+			a = this.f.scale(aux);
 		}
-		// System.out.println(a);
+		//System.out.println(a);
 
 		// 2.Cambiamos la posicion a p + v*t + 1/2 * a *t2
 		Vector2D vt = this.v.scale(t); // v * t
-		System.out.println("VT: " + vt);
+		//System.out.println("VT: " + vt);
 
 		this.p = this.p.plus(vt);
-		System.out.println("PVT: " + p);
+		//System.out.println("PVT: " + p);
 
 		// System.out.println(t);
 		double t2 = t * t; // t2
 
 		Vector2D aux2 = a.scale(1.0 / 2.0); // 1/2 * a
-		System.out.println(aux2);
+		//System.out.println(aux2);
 
 		Vector2D aux3 = aux2.scale(t2);
 
 		this.p = this.p.plus(aux3);
-		System.out.println("P: " + p);
+		//System.out.println("P: " + p);
 
 		// y la velocidad a v + a*t
 		this.v = this.v.plus(a.scale(t));
-		System.out.println("a: " + a);
-		System.out.println("v: " + v);
+		//System.out.println("a: " + a);
+		//System.out.println("v: " + v);
 
 	}
 

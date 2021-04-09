@@ -43,7 +43,6 @@ public class NewtonUniversalGravitation implements ForceLaws {
 				}
 			// En caso de ser el mismo, se sumaria 0,0
 			bs.get(i).addForce(Fi); // Modifico su aceleracion
-
 		}
 	}
 

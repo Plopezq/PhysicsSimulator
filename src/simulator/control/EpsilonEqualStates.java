@@ -43,20 +43,19 @@ public class EpsilonEqualStates implements StateComparator {
 			if( Math.abs(m1-m2) > this.eps) return false;
 			
 			//Compruebo que sus vectores POSICION son iguales modulo epsilon
-			Vector2D v1 = new Vector2D( (Vector2D) ja1.getJSONObject(i).get("p") );
-			Vector2D v2 = new Vector2D( (Vector2D) ja2.getJSONObject(i).get("p") );
+			Vector2D v1 = new Vector2D(ja1.getJSONObject(i).getJSONArray("p").getDouble(0), ja1.getJSONObject(i).getJSONArray("p").getDouble(1) );
+			Vector2D v2 = new Vector2D( ja2.getJSONObject(i).getJSONArray("p").getDouble(0), ja2.getJSONObject(i).getJSONArray("p").getDouble(1) );
 			if( v1.distanceTo(v2) > this.eps) return false;
 			
 			//Compruebo que sus vectores VELOCIDAD son iguales modulo epsilon
-			Vector2D ve1 = new Vector2D( (Vector2D) ja1.getJSONObject(i).get("v") );
-			Vector2D ve2 = new Vector2D( (Vector2D) ja2.getJSONObject(i).get("v") );
+			Vector2D ve1 = new Vector2D( ja1.getJSONObject(i).getJSONArray("v").getDouble(0), ja1.getJSONObject(i).getJSONArray("v").getDouble(1) );
+			Vector2D ve2 = new Vector2D( ja2.getJSONObject(i).getJSONArray("v").getDouble(0), ja2.getJSONObject(i).getJSONArray("v").getDouble(1) );
 			if( ve1.distanceTo(ve2) > this.eps) return false;
 
 			//Compruebo que sus vectores FUERZA son iguales modulo epsilon
-			Vector2D f1 = new Vector2D( (Vector2D) ja1.getJSONObject(i).get("f") );
-			Vector2D f2 = new Vector2D( (Vector2D) ja2.getJSONObject(i).get("f") );
+			Vector2D f1 = new Vector2D( ja1.getJSONObject(i).getJSONArray("f").getDouble(0), ja1.getJSONObject(i).getJSONArray("f").getDouble(1) );
+			Vector2D f2 = new Vector2D( ja2.getJSONObject(i).getJSONArray("f").getDouble(0), ja2.getJSONObject(i).getJSONArray("f").getDouble(1) );
 			if( f1.distanceTo(f2) > this.eps) return false;
-
 		}
 		
 		return true;

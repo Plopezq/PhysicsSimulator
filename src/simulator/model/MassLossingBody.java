@@ -1,5 +1,7 @@
 package simulator.model;
 
+import org.json.JSONObject;
+
 import simulator.misc.Vector2D;
 
 public class MassLossingBody extends Body {
@@ -22,7 +24,9 @@ public class MassLossingBody extends Body {
 		super.move(t);
 		looseMass(t);
 	}
-	
+	public double getLossFreq() {
+		return this.lossFrequency;
+	}
 	private void looseMass(double t) {
 		this.c+=t; //anadimos al contador el tiempo que ha pasado al moverse esta vez el cuerpo
 		

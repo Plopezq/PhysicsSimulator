@@ -271,9 +271,10 @@ public class Main {
 	private static void parseOutFileOption(CommandLine line) throws ParseException  {
 		_outFile  = line.getOptionValue("o");
 		
-		if (_outFile == null) {
-			throw new ParseException("Out file argument missing");
-		}		
+		//Si no existe, se muestra por la salida estandar
+//		if (_outFile == null) {
+//			throw new ParseException("Out file argument missing");
+//		}		
 	}
 	
 	private static void parseStepsOption(CommandLine line) {
@@ -281,7 +282,7 @@ public class Main {
 	}
 	
 	private static void parseExpectedOutputOption(CommandLine line) {
-		_outExpectedFile = line.getOptionValue("ou");
+		_outExpectedFile = line.getOptionValue("eo");
 	}
 	
 	private static void startBatchMode() throws Exception {
@@ -317,7 +318,6 @@ public class Main {
 		 * método loadBodies del controlador.
 		 */
 		Controller control = new Controller(simulador, _bodyFactory);
-
 		InputStream in = new FileInputStream(_inFile);
 		control.loadBodies(in);
 
