@@ -25,7 +25,7 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 		// f=9.81m
 
 		for (Body b : bs) {
-			Vector2D Fi = ((this.c.minus(b.p)).direction()).scale(b.m / this.g);
+			Vector2D Fi = ((this.c.minus(b.p)).direction()).scale(b.m * this.g);
 			b.addForce(Fi);
 
 			// Esto provocará que el cuerpo bi se mueva hacia ~c con una aceleración g.
