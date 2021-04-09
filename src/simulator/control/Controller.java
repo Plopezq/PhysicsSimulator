@@ -62,6 +62,7 @@ public class Controller {
 			p.print(",");
 			this.simulador.advance(); //ejecutamos un paso de simulacion
 			p.println(this.simulador.getState());
+			//System.out.println(i);
 			//En cada paso de simulacion, debo comparar el estado actual, con el esperado 
 			// usando el comparador que me proporcionan
 			if(expOut != null) { //Si tenemos archivo con el que comparar, comparamos
