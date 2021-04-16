@@ -317,7 +317,7 @@ public class Main {
 		 * Añada los cuerpos al simulador llamando al
 		 * método loadBodies del controlador.
 		 */
-		Controller control = new Controller(simulador, _bodyFactory);
+		Controller control = new Controller(simulador, _bodyFactory, _forceLawsFactory);
 		InputStream in = new FileInputStream(_inFile);
 		control.loadBodies(in);
 
