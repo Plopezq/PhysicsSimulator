@@ -5,6 +5,7 @@ import simulator.model.SimulatorObserver;
 import simulator.model.Body;
 import simulator.model.ForceLaws;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -24,12 +25,12 @@ public class Controller {
 	
 	private PhysicsSimulator simulador; //Se usara para ejecutar las diferentes operaciones
 	private Factory<Body> factBody; //Se usara para construir los cuerpos que se leen del fichero
-	private Factory<ForceLaws> facLaws;
+	private Factory<ForceLaws> factLaws;
 	//CONSTRUCTOR
 	public Controller(PhysicsSimulator simulador, Factory<Body> factBody, Factory<ForceLaws> factLaws) {
 		this.simulador = simulador;
 		this.factBody = factBody;	
-		this.facLaws = factLaws;
+		this.factLaws = factLaws;
 	}
 	//METODOS
 	public void loadBodies(InputStream in) { // (1)
@@ -94,38 +95,29 @@ public class Controller {
 		this.addObserver(o);
 	}
 	
-	public void run(int n) {
+	public void run(int n) throws DifferentStatesException {
 		//Ejecuta n pasos del simulador sin escribir nada en consola. 
 		//Este método es opcional. 
 		//Puedes usar el método run que has programado en la práctica 1 de manera que, 
 		//cuando se llame desde la GUI, se le proporcione un OutputStream que no imprima nada:
 		//VER pagina 4
-		
-		
-		
+		OutputStream osAux = new OutputStream() { @Override public void write(int b) throws IOException { }; };		
+		//TODO revisar si esta bien
+		this.run(n, osAux, null, null);
 	}
 	
-	public List<JSONObject>getForceLawsInfo(){
+	public List<JSONObject> getForceLawsInfo(){
 		//devuelve la lista devuelta por el método getInfo() de la factoría de leyes de fuerza.
 		//Se utilizará en la GUI para mostrar las leyes de fuerza disponibles y permitir cambiarlas.
-		
-		
-		
+		return this.factLaws.getInfo();
 	}
 	
 	public void setForceLaws(JSONObject info) {
 		//usa la factoría de leyes de fuerza actual para crear un nuevo objeto 
 		//de tipo ForceLaws a partir de info y cambia las leyes 
 		//de la fuerza del simulador por él.
-		
-		
-		
-		
-		
+		//TODO revisar si de verdad esta bien
+		Object aux = this.factLaws.createInstance(info);
+		this.simulador.setForceLawsLaws((ForceLaws) aux);
 	}
-	
-	
-	
-	
-	
 }
