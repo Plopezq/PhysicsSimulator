@@ -8,6 +8,8 @@ import org.json.JSONObject;
 
 public class PhysicsSimulator {
 	private List<Body> bodies;
+	private List<SimulatorObserver> observers;
+
 	private double tiempo_actual;
 	private double delta_time; // tiempo real por paso
 	// representa el tiempo (en segundos) que corresponde
@@ -45,6 +47,9 @@ public class PhysicsSimulator {
 		}
 		this.tiempo_actual += this.delta_time;
 
+		for (SimulatorObserver o : observers) {
+			o.onAdvance(bodies, tiempo_actual);
+		}
 	}
 
 	public void addBody(Body b) {
@@ -52,6 +57,10 @@ public class PhysicsSimulator {
 			bodies.add(b);
 		else
 			throw new IllegalArgumentException();
+
+		for (SimulatorObserver o : observers) {
+			o.onBodyAdded(bodies, b);
+		}
 	}
 
 	public JSONObject getState() {
@@ -83,6 +92,9 @@ public class PhysicsSimulator {
 	public void reset() {
 		tiempo_actual = 0.0;
 		bodies.clear();
+		for (SimulatorObserver o : observers) {
+			o.onReset(bodies, tiempo_actual, delta_time, leyes.toString());
+		}
 	}
 
 	public void setDeltaTime(double dt) {
@@ -90,12 +102,25 @@ public class PhysicsSimulator {
 			throw new IllegalArgumentException();
 
 		delta_time = dt;
+		for (SimulatorObserver o : observers) {
+			o.onDeltaTimeChanged(dt);
+		}
 	}
 
 	public void setForceLawsLaws(ForceLaws forceLaws) {
 		if (forceLaws == null)
 			throw new IllegalArgumentException();
 		leyes = forceLaws;
+		for (SimulatorObserver o : observers) {
+			o.onForceLawsChanged(forceLaws.toString());
+		}
 	}
 
+	public void addObserver(SimulatorObserver o) {
+		if (!observers.contains(o))
+			observers.add(o);
+		else
+			throw new IllegalArgumentException();
+		o.onRegister(bodies, tiempo_actual, delta_time, leyes.toString());
+	}
 }
