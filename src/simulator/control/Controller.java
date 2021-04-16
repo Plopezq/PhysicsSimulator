@@ -1,11 +1,14 @@
 package simulator.control;
 
 import simulator.model.PhysicsSimulator;
+import simulator.model.SimulatorObserver;
 import simulator.model.Body;
+import simulator.model.ForceLaws;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,12 +23,13 @@ public class Controller {
 //	mostrar los diferentes estados de cada paso en un OutputStream dado.
 	
 	private PhysicsSimulator simulador; //Se usara para ejecutar las diferentes operaciones
-	private Factory<Body> factoria; //Se usara para construir los cuerpos que se leen del fichero
-	
+	private Factory<Body> factBody; //Se usara para construir los cuerpos que se leen del fichero
+	private Factory<ForceLaws> facLaws;
 	//CONSTRUCTOR
-	public Controller(PhysicsSimulator simulador, Factory<Body> factoria) {
+	public Controller(PhysicsSimulator simulador, Factory<Body> factBody, Factory<ForceLaws> factLaws) {
 		this.simulador = simulador;
-		this.factoria = factoria;		
+		this.factBody = factBody;	
+		this.facLaws = factLaws;
 	}
 	//METODOS
 	public void loadBodies(InputStream in) { // (1)
@@ -33,7 +37,7 @@ public class Controller {
 		JSONArray objs = jsonInput.getJSONArray("bodies"); 
 		for (int i = 0; i < objs.length(); i++) { //Leemos cuerpo a cuerpo
 			//System.out.println(objs.getJSONObject(i)); //Para debuggear
-			Body cuerpo = this.factoria.createInstance(objs.getJSONObject(i));//Creamos el cuerpo
+			Body cuerpo = this.factBody.createInstance(objs.getJSONObject(i));//Creamos el cuerpo
 			this.simulador.addBody(cuerpo); //Lo anyadimos al simulador
 		}
 	}
@@ -73,5 +77,55 @@ public class Controller {
 		}
 		p.println("]"); p.println("}");
 	}
+	
+	public void reset() {
+		//invoca al metodo reset del simulador
+		this.simulador.reset();
+	}
+	
+	public void setDeltaTime(double dt) {
+		//Invoca al metodo setDeltaTime del simulador
+		this.simulador.setDeltaTime(dt);
+		
+	}
+	
+	public void addObserver(SimulatorObserver o) {
+		//Invoca al metodo addObserver del simulador
+		this.addObserver(o);
+	}
+	
+	public void run(int n) {
+		//Ejecuta n pasos del simulador sin escribir nada en consola. 
+		//Este método es opcional. 
+		//Puedes usar el método run que has programado en la práctica 1 de manera que, 
+		//cuando se llame desde la GUI, se le proporcione un OutputStream que no imprima nada:
+		//VER pagina 4
+		
+		
+		
+	}
+	
+	public List<JSONObject>getForceLawsInfo(){
+		//devuelve la lista devuelta por el método getInfo() de la factoría de leyes de fuerza.
+		//Se utilizará en la GUI para mostrar las leyes de fuerza disponibles y permitir cambiarlas.
+		
+		
+		
+	}
+	
+	public void setForceLaws(JSONObject info) {
+		//usa la factoría de leyes de fuerza actual para crear un nuevo objeto 
+		//de tipo ForceLaws a partir de info y cambia las leyes 
+		//de la fuerza del simulador por él.
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
 	
 }
