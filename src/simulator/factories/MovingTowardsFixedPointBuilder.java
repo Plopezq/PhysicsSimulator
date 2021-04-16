@@ -31,10 +31,10 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 		JSONObject force = new JSONObject();
 		force.put("type", "mtfp");
 			JSONObject data = new JSONObject();
-			data.put("c", new Vector2D(0,0).toString());
-			data.put("g", 9.81);
+			data.put("c","the point towards which bodies move \"(a json list of 2 numbers, e.g., [100.0,50.0]"); //new Vector2D(0,0).toString());
+			data.put("g","the length of the acceleration vector (a number)"); // 9.81
 		force.put("data", data);
-		force.put("desc", "Movimiento hacia u punto fijo, la ley simula un escenario en el cual todos los cuerpos caen hacia el 'centro del universo'");
+		force.put("desc", "Moving towards a fixed point");
 		return force;
 	}
 	

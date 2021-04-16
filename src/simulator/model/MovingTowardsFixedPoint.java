@@ -5,7 +5,7 @@ import java.util.List;
 import simulator.misc.Vector2D;
 
 public class MovingTowardsFixedPoint implements ForceLaws {
-	
+
 	private Vector2D c;
 	private double g;
 
@@ -35,6 +35,6 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 	@Override
 	public String toString() {
 
-		return null;
+		return "Moving towards -" + c.toString() + " with constant acceleration -" + g;
 	}
 }
