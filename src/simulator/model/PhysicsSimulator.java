@@ -26,6 +26,7 @@ public class PhysicsSimulator {
 
 		this.tiempo_actual = 0.0;
 		this.bodies = new ArrayList<>();
+		this.observers = new ArrayList<>();
 	}
 
 	public void advance() {
@@ -57,7 +58,6 @@ public class PhysicsSimulator {
 			bodies.add(b);
 		else
 			throw new IllegalArgumentException();
-
 		for (SimulatorObserver o : observers) {
 			o.onBodyAdded(bodies, b);
 		}

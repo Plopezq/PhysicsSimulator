@@ -87,7 +87,6 @@ public class Controller {
 	public void setDeltaTime(double dt) {
 		//Invoca al metodo setDeltaTime del simulador
 		this.simulador.setDeltaTime(dt);
-		
 	}
 	
 	public void addObserver(SimulatorObserver o) {

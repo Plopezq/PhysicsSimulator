@@ -2,14 +2,20 @@ package simulator.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
@@ -20,47 +26,103 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 // ...
 	private Controller _ctrl;
 	private boolean _stopped;
-	JButton loadButton;
-	JFileChooser loadFile;
+	private JButton loadButton;
+	private JFileChooser fc;
+	private JButton physicsButton;
+	private JButton runButton;
+	private JButton stopButton;
+	private JButton exitButton;
+	private JToolBar toolBar;
+	private JSpinner numPasos;
+	private JTextField dt;
+
 
 	ControlPanel(Controller ctrl) {
 		_ctrl = ctrl;
 		_stopped = true;
 		initGUI();
-		_ctrl.addObserver(this);
+		//_ctrl.addObserver(this); //da problemas
 	}
 
 	private void initGUI() {
-		// TODO build the tool bar by adding buttons, etc.
-		// boton cargar datos
+		
+		toolBar = new JToolBar("ToolBar flotante");
+		//BOTON CARGHAR DATOS
 		loadButton = new JButton("LOAD"); // hay que cambiarlo por el icono.
-		loadFile = new JFileChooser();
+		loadButton = new JButton();
+		fc = new JFileChooser();
+		loadButton.setIcon(new ImageIcon("resources/icons/open.png"));
 		loadButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser();
-				int returnValue = fileChooser.showOpenDialog(null);
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					try {
-						_ctrl.reset();
-						InputStream bodies = new FileInputStream(loadFile.getSelectedFile());
-						_ctrl.loadBodies(bodies);
+					int v = fc.showOpenDialog(null); 
+					if (v==JFileChooser.APPROVE_OPTION){ 
+						File file = fc.getSelectedFile(); 
+						System.out.println("loading " +file.getName()); 
+					} else 
+						System.out.println("load cancelled by user"); }
 
-					} catch (Exception exc) {
-						JOptionPane.showMessageDialog(loadFile, exc.getMessage());
+		});
+		toolBar.add(loadButton);
+		toolBar.addSeparator();
+		//BOTON LEYES DE LA FISICA
+		physicsButton = new JButton();
+		physicsButton.setIcon(new ImageIcon("resources/icons/physics.png"));
+		/*physicsButton.addActionListener(new ActionListener() {
+			/* @Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null,
+						"Has pulsado el boton de fisica.", 
+						"Message", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});*/ //TODO
+		toolBar.add(physicsButton);
+		toolBar.addSeparator();
+		
+		//BOTON DE RUN
+		runButton = new JButton();
+		runButton.setIcon(new ImageIcon("resources/icons/run.png"));
+		//runButton.addActionListener(/*new RunButtomListener()*/); //TODO
+		toolBar.add(runButton);
+		
+		//BOTON DE STOP
+		stopButton = new JButton();
+		stopButton.setIcon(new ImageIcon("resources/icons/stop.png"));
+		toolBar.add(stopButton);
+		
+		//SELECTOR DEL NUMERO DE PASOS
+		numPasos = new JSpinner();
+		toolBar.add(numPasos);
 
-					}
-				}
+		//DELTA TIME
+		dt = new JTextField();
+		toolBar.add(dt);
+		
+		
+		
+		toolBar.add(Box.createGlue());
+		//BOTON DE CERRAR
+		exitButton = new JButton();
+		exitButton.setIcon(new ImageIcon("icons/exit.png"));
+		exitButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] options = {"Si","No"}; 
+				int n = JOptionPane.showOptionDialog(null, 
+						"Elige una opción:",
+						"Opciones Posibles", 
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.INFORMATION_MESSAGE,
+						null, options, options[0]);
+					if (n==JOptionPane.YES_OPTION)
+						System.exit(0);
 			}
 		});
+		toolBar.add(exitButton);
 
-		// boton forcelaws
 		
-		// boton play
-		// boton stop
-		// boton cerrar
-		// pasos
-		// delta time
+		
+		this.add(toolBar);
 	}
 
 	// other private/protected methods

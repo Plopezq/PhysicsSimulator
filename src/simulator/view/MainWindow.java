@@ -19,10 +19,35 @@ public class MainWindow extends JFrame {
 
 	private void initGUI() {
 		JPanel mainPanel = new JPanel(new BorderLayout());
-		setContentPane(mainPanel);
-		// TODO complete this method to build the GUI
-		JPanel controlPanel = new JPanel(new BorderLayout());
-		mainPanel.add(controlPanel,BorderLayout.PAGE_START);	}
+		this.setContentPane(mainPanel);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+		//ANYADO LE PANEL DE CONTROL arriba del todo
+		this.add(new ControlPanel(this._ctrl), BorderLayout.PAGE_START);
+		
+		
+		
+		//ANYADO LA TABLA DE ESTADOS abajo del todo
+		//this.add(new StatusBar(this._ctrl), BorderLayout.PAGE_END);
+		
+		
+		
+		//ANYADO LE VISOR GRAFICO
+		
+		
+		
+		
+		//ANYADO LA BARRA DE ESTADO
+	
+		
+		
+		
+		
+		this.setVisible(true);
+		this.pack();	
+	}
 	// other private/protected methods
 	// ...
+	
+	
 }
