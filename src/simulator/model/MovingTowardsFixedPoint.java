@@ -35,6 +35,6 @@ public class MovingTowardsFixedPoint implements ForceLaws {
 	@Override
 	public String toString() {
 
-		return "Moving towards -" + c.toString() + " with constant acceleration -" + g;
+		return "Moving towards -" + c.toString() + " with constant acceleration -" + this.g;
 	}
 }

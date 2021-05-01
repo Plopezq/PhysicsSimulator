@@ -90,8 +90,8 @@ public class PhysicsSimulator {
 	}
 
 	public void reset() {
-		tiempo_actual = 0.0;
-		bodies.clear();
+		this.tiempo_actual = 0.0; // Pone el tiempo a 0	
+		this.bodies.clear(); //Vacia la lista de cuerpos
 		for (SimulatorObserver o : observers) {
 			o.onReset(bodies, tiempo_actual, delta_time, leyes.toString());
 		}
@@ -100,8 +100,7 @@ public class PhysicsSimulator {
 	public void setDeltaTime(double dt) {
 		if (dt <= 0.0)
 			throw new IllegalArgumentException();
-
-		delta_time = dt;
+		this.delta_time = dt;
 		for (SimulatorObserver o : observers) {
 			o.onDeltaTimeChanged(dt);
 		}
@@ -110,7 +109,7 @@ public class PhysicsSimulator {
 	public void setForceLawsLaws(ForceLaws forceLaws) {
 		if (forceLaws == null)
 			throw new IllegalArgumentException();
-		leyes = forceLaws;
+		this.leyes = forceLaws;
 		for (SimulatorObserver o : observers) {
 			o.onForceLawsChanged(forceLaws.toString());
 		}
