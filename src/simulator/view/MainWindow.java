@@ -20,10 +20,10 @@ public class MainWindow extends JFrame {
 	private void initGUI() {
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		//ANYADO LE PANEL DE CONTROL arriba del todo
-		this.add(new ControlPanel(this._ctrl), BorderLayout.PAGE_START);
+		//ANYADO AL PANEL EL PANEL DE CONTROL arriba del todo
+		mainPanel.add(new ControlPanel(this._ctrl));
 		
 		
 		

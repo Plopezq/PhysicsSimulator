@@ -1,9 +1,13 @@
 package simulator.view;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -11,11 +15,14 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
@@ -34,10 +41,12 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	private JButton exitButton;
 	private JToolBar toolBar;
 	private JSpinner numPasos;
+	private JLabel jl;
 	private JTextField dt;
 
 
 	ControlPanel(Controller ctrl) {
+		super();
 		_ctrl = ctrl;
 		_stopped = true;
 		initGUI();
@@ -45,10 +54,12 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	}
 
 	private void initGUI() {
-		
+		BorderLayout layout = new BorderLayout();
+		this.setLayout(layout);
+		this.setVisible(true);
 		toolBar = new JToolBar("ToolBar flotante");
+		
 		//BOTON CARGHAR DATOS
-		loadButton = new JButton("LOAD"); // hay que cambiarlo por el icono.
 		loadButton = new JButton();
 		fc = new JFileChooser();
 		loadButton.setIcon(new ImageIcon("resources/icons/open.png"));
@@ -56,14 +67,24 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					int v = fc.showOpenDialog(null); 
-					if (v==JFileChooser.APPROVE_OPTION){ 
-						File file = fc.getSelectedFile(); 
+					if (v==JFileChooser.APPROVE_OPTION){
+						_ctrl.reset(); //Limpiamos el simulador
+						File file = fc.getSelectedFile();
+					    InputStream stream;
+						try {
+							stream = new FileInputStream(file);
+							_ctrl.loadBodies(stream); //Cargamos el fichero al simulador
+						} catch (FileNotFoundException e1) {
+							e1.printStackTrace(); //No deberia pasar nunca
+						}
 						System.out.println("loading " +file.getName()); 
 					} else 
-						System.out.println("load cancelled by user"); }
+						System.out.println("load cancelled by user"); 
+					}
 
 		});
 		toolBar.add(loadButton);
+		
 		toolBar.addSeparator();
 		//BOTON LEYES DE LA FISICA
 		physicsButton = new JButton();
@@ -82,7 +103,27 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		//BOTON DE RUN
 		runButton = new JButton();
 		runButton.setIcon(new ImageIcon("resources/icons/run.png"));
-		//runButton.addActionListener(/*new RunButtomListener()*/); //TODO
+		runButton.addActionListener(new ActionListener() {
+			 @Override
+			public void actionPerformed(ActionEvent e) {
+				//Desactivamos todos los botones excepto el de stop
+				loadButton.setEnabled(false);
+				physicsButton.setEnabled(false);
+				runButton.setEnabled(false);
+				numPasos.setEnabled(false);
+				dt.setEnabled(false);
+				
+				//Cambiamos el valor de stopper
+				_stopped = false;
+				
+				//Ponemos el dt correspondiente
+				_ctrl.setDeltaTime(Double.parseDouble(dt.getText()));
+				
+				//Llamamos al run__sim con los pasos que diga el spinner
+				
+				
+			}
+		}); 
 		toolBar.add(runButton);
 		
 		//BOTON DE STOP
@@ -91,19 +132,24 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		toolBar.add(stopButton);
 		
 		//SELECTOR DEL NUMERO DE PASOS
-		numPasos = new JSpinner();
+	    SpinnerModel modelo = new SpinnerNumberModel(0, 0, 20000, 1);//value, min, max, steps
+	    numPasos = new JSpinner(modelo);
 		toolBar.add(numPasos);
 
 		//DELTA TIME
-		dt = new JTextField();
+		jl = new JLabel("Delta time: ");
+		jl.setOpaque(true);
+		dt = new JTextField(6);
+		toolBar.add(jl);
 		toolBar.add(dt);
-		
-		
-		
+		toolBar.addSeparator();
+
+				
 		toolBar.add(Box.createGlue());
 		//BOTON DE CERRAR
 		exitButton = new JButton();
-		exitButton.setIcon(new ImageIcon("icons/exit.png"));
+		exitButton.setIcon(new ImageIcon("resources/icons/exit.png"));
+		toolBar.add(exitButton);
 		exitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -118,11 +164,10 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 						System.exit(0);
 			}
 		});
-		toolBar.add(exitButton);
 
 		
-		
-		this.add(toolBar);
+		toolBar.setFloatable(true);
+		this.add(toolBar, BorderLayout.PAGE_START);
 	}
 
 	// other private/protected methods
