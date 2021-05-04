@@ -129,6 +129,13 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		//BOTON DE STOP
 		stopButton = new JButton();
 		stopButton.setIcon(new ImageIcon("resources/icons/stop.png"));
+		stopButton.addActionListener(new ActionListener() {
+			 @Override
+			public void actionPerformed(ActionEvent e) {
+				//Cambiamos el valor de stopper
+				_stopped = true;	
+			}
+		}); 
 		toolBar.add(stopButton);
 		
 		//SELECTOR DEL NUMERO DE PASOS		
@@ -160,8 +167,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			public void actionPerformed(ActionEvent e) {
 				Object[] options = {"Si","No"}; 
 				int n = JOptionPane.showOptionDialog(null, 
-						"Elige una opción:",
-						"Opciones Posibles", 
+						"Estas seguro de querer cerrar el simulador?:",
+						"Physics Simulator", 
 						JOptionPane.YES_NO_OPTION, 
 						JOptionPane.INFORMATION_MESSAGE,
 						null, options, options[0]);
