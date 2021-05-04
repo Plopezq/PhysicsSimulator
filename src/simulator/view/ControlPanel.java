@@ -1,6 +1,7 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -41,7 +42,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	private JButton exitButton;
 	private JToolBar toolBar;
 	private JSpinner numPasos;
-	private JLabel jl;
+	private JLabel jl1;
+	private JLabel jl2;
 	private JTextField dt;
 
 
@@ -54,9 +56,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	}
 
 	private void initGUI() {
-		BorderLayout layout = new BorderLayout();
-		this.setLayout(layout);
-		this.setVisible(true);
+		this.setLayout(new BorderLayout());
 		toolBar = new JToolBar("ToolBar flotante");
 		
 		//BOTON CARGHAR DATOS
@@ -131,21 +131,26 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		stopButton.setIcon(new ImageIcon("resources/icons/stop.png"));
 		toolBar.add(stopButton);
 		
-		//SELECTOR DEL NUMERO DE PASOS
+		//SELECTOR DEL NUMERO DE PASOS		
+		jl1 = new JLabel("Steps: ");
+		jl1.setOpaque(true);
 	    SpinnerModel modelo = new SpinnerNumberModel(0, 0, 20000, 1);//value, min, max, steps
 	    numPasos = new JSpinner(modelo);
+	    numPasos.setMaximumSize(new Dimension(200, 50));
+		toolBar.add(jl1);
 		toolBar.add(numPasos);
 
 		//DELTA TIME
-		jl = new JLabel("Delta time: ");
-		jl.setOpaque(true);
+		jl2 = new JLabel("Delta time: ");
+		jl2.setOpaque(true);
 		dt = new JTextField(6);
-		toolBar.add(jl);
+		dt.setMaximumSize(new Dimension(200, 50));
+		toolBar.add(jl2);
 		toolBar.add(dt);
-		toolBar.addSeparator();
 
 				
 		toolBar.add(Box.createGlue());
+		toolBar.addSeparator();
 		//BOTON DE CERRAR
 		exitButton = new JButton();
 		exitButton.setIcon(new ImageIcon("resources/icons/exit.png"));
@@ -164,9 +169,9 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 						System.exit(0);
 			}
 		});
-
 		
 		toolBar.setFloatable(true);
+		//this.setVisible(true);
 		this.add(toolBar, BorderLayout.PAGE_START);
 	}
 

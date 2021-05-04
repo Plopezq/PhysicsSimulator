@@ -1,6 +1,8 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,29 +24,38 @@ public class MainWindow extends JFrame {
 		this.setContentPane(mainPanel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		//ANYADO AL PANEL EL PANEL DE CONTROL arriba del todo
-		mainPanel.add(new ControlPanel(this._ctrl));
+		//ANYADO AL PANEL EL PANEL DE CONTROL en el PAGE_START del panel mainPanel;
+		mainPanel.add(new ControlPanel(this._ctrl), BorderLayout.PAGE_START );
+		
+		
+		/* (3) crea un nuevo panel que use BoxLayout (y BoxLayout.Y_AXIS) y colócalo 
+		 * en el CENTER de mainPanel. 
+		 * Añade la tabla de cuerpos y el viewer en este panel.
+		 */
+		//ANYADO LA TABLA DE CUERPOS 
 		
 		
 		
-		//ANYADO LA TABLA DE ESTADOS abajo del todo
-		//this.add(new StatusBar(this._ctrl), BorderLayout.PAGE_END);
-		
-		
-		
-		//ANYADO LE VISOR GRAFICO
-		
-		
-		
-		
-		//ANYADO LA BARRA DE ESTADO
-	
+		//ANYADO EL VIEWER
 		
 		
 		
 		
-		this.setVisible(true);
+		//ANYADO LA BARRA DE ESTADO en el PAGE_END del mainPanel;
+		mainPanel.add(new StatusBar(this._ctrl), BorderLayout.PAGE_END );
+
+		
+		
+		//Centro el JFrame
+		//Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+	    //int height = pantalla.height;
+	    //int width = pantalla.width;
+	    //this.setSize(width/2, height/2);	
+	    this.setLocationRelativeTo(null);		
+	    this.setVisible(true);
+		//this.setBounds(400,400,600,300);
 		this.pack();	
+		
 	}
 	// other private/protected methods
 	// ...

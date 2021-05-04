@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.List;
 
@@ -14,23 +15,36 @@ import simulator.model.SimulatorObserver;
 public class StatusBar extends JPanel implements SimulatorObserver{
 	// ...
 	private JLabel _currTime; // for current time
+	private double time;
 	private JLabel _currLaws; // for gravity laws
+	private String laws = "prueba";
 	private JLabel _numOfBodies; // for number of bodies
+	private int bodies;
 	//En los métodos que implementan el observador, es necesario modiﬁcar 
 	//la correspondiente JLabel si la información cambia.
 	
 	StatusBar(Controller ctrl) { 
 		initGUI(); 
-		ctrl.addObserver(this); 
+		//ctrl.addObserver(this); //DA PROBLEMAS DE MOMENTO
 	}
-	
 
 	private void initGUI() {
-		this.setLayout( new FlowLayout( FlowLayout.LEFT ));
+		this.setLayout( new FlowLayout( FlowLayout.LEFT, 30, 5 ));
 		this.setBorder( BorderFactory.createBevelBorder( 1 ));
 		
-		// TODO complete the code to build the tool bar
+		//ETIQUETA DE TIEMPO
+		_currTime = new JLabel("Time: " + this.time);
+		//_currTime.setBounds(x,y,w,h);
+		this.add(_currTime);
+		//ETIQUETA DE CUERPOS
+		_numOfBodies = new JLabel("Bodies: " + this.bodies);
+		//_numOfBodies.setBounds(x,y,w,h);
+		this.add(_numOfBodies);
 		
+		//ETIQUETA DE LEY DE FUERZA
+		_currLaws = new JLabel("Laws: " + this.laws);
+		//_currLaws.setBounds(x,y,w,h);
+		this.add(_currLaws);
 	}
 	
 	// other private/protected methods
@@ -40,12 +54,6 @@ public class StatusBar extends JPanel implements SimulatorObserver{
 	
 	
 	// SimulatorObserver methods
-	//...
-	
-
-	
-	
-	//SIMULATOR OBSERVER METHODS
 	@Override
 	public void onRegister(List<Body> bodies, double time, double dt, String fLawsDesc) {
 		// TODO Auto-generated method stub
