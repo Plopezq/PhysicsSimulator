@@ -141,7 +141,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		//SELECTOR DEL NUMERO DE PASOS		
 		jl1 = new JLabel("Steps: ");
 		jl1.setOpaque(true);
-	    SpinnerModel modelo = new SpinnerNumberModel(0, 0, 20000, 1);//value, min, max, steps
+	    SpinnerModel modelo = new SpinnerNumberModel(0, 0, 4000, 100);//value, min, max, steps
 	    numPasos = new JSpinner(modelo);
 	    numPasos.setMaximumSize(new Dimension(200, 50));
 		toolBar.add(jl1);

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -32,14 +33,15 @@ public class MainWindow extends JFrame {
 		 * en el CENTER de mainPanel. 
 		 * Añade la tabla de cuerpos y el viewer en este panel.
 		 */
-		//ANYADO LA TABLA DE CUERPOS 
+		JPanel centerPanel = new JPanel(); 
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+			//ANYADO LA TABLA DE CUERPOS 
+			centerPanel.add(new BodiesTable(this._ctrl));
+			
+			//ANYADO EL VIEWER
+			//centerPanel.add(...
 		
-		
-		
-		//ANYADO EL VIEWER
-		
-		
-		
+		mainPanel.add(centerPanel,BorderLayout.CENTER);
 		
 		//ANYADO LA BARRA DE ESTADO en el PAGE_END del mainPanel;
 		mainPanel.add(new StatusBar(this._ctrl), BorderLayout.PAGE_END );
