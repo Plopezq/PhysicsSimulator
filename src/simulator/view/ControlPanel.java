@@ -215,7 +215,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			runButton.setEnabled(true);
 			numPasos.setEnabled(true);
 			dt.setEnabled(true);
-			_stopped = true;
+			_stopped = true;		
 		}
 	}
 

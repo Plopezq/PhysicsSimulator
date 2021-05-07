@@ -67,7 +67,6 @@ public class BodiesTableModel extends AbstractTableModel implements SimulatorObs
 	public void onReset(List<Body> bodies, double time, double dt, String fLawsDesc) {
 		this._bodies = bodies;
 		fireTableStructureChanged();
-
 	}
 
 	@Override
