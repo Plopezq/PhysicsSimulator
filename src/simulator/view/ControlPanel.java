@@ -220,7 +220,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			runButton.setEnabled(true);
 			numPasos.setEnabled(true);
 			dt.setEnabled(true);
-			_stopped = true;		}
+			_stopped = true;		
+		}
 	}
 	
 	protected void selectForceLaws() {
@@ -253,7 +254,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	public void onRegister(List<Body> bodies, double time, double dt, String fLawsDesc) {
 		String cadena = String.valueOf(dt);
 		this.dt.setText(cadena);
-
+		
 	}
 
 	@Override
@@ -278,7 +279,6 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	public void onDeltaTimeChanged(double dt) {
 		String cadena = String.valueOf(dt);
 		this.dt.setText(cadena);
-
 	}
 
 	@Override
