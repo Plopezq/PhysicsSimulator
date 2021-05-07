@@ -51,7 +51,6 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	private JLabel jl2;
 	private JTextField dt;
 
-
 	public ControlPanel(Controller ctrl) {
 		super();
 		_ctrl = ctrl;
@@ -59,12 +58,12 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		initGUI();
 		_ctrl.addObserver(this);
 	}
-	
+
 	private void initGUI() {
 		this.setLayout(new BorderLayout());
 		toolBar = new JToolBar("ToolBar flotante");
-		
-		//BOTON CARGHAR DATOS
+
+		// BOTON CARGHAR DATOS
 		loadButton = new JButton();
 		fc = new JFileChooser();
 		File workingDirectory = new File(System.getProperty("user.dir"));
@@ -73,27 +72,27 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		loadButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					int v = fc.showOpenDialog(null); 
-					if (v==JFileChooser.APPROVE_OPTION){
-						_ctrl.reset(); //LIMPIAMOS el simulador
-						File file = fc.getSelectedFile();
-					    InputStream stream;
-						try {
-							stream = new FileInputStream(file);
-							_ctrl.loadBodies(stream); //CARGAMOS el fichero al simulador
-						} catch (FileNotFoundException e1) {
-							e1.printStackTrace(); //No deberia pasar nunca
-						}
-						System.out.println("loading " +file.getName()); 
-					} else 
-						System.out.println("load cancelled by user"); 
+				int v = fc.showOpenDialog(null);
+				if (v == JFileChooser.APPROVE_OPTION) {
+					_ctrl.reset(); // LIMPIAMOS el simulador
+					File file = fc.getSelectedFile();
+					InputStream stream;
+					try {
+						stream = new FileInputStream(file);
+						_ctrl.loadBodies(stream); // CARGAMOS el fichero al simulador
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace(); // No deberia pasar nunca
 					}
+					System.out.println("loading " + file.getName());
+				} else
+					System.out.println("load cancelled by user");
+			}
 
 		});
 		toolBar.add(loadButton);
-		
+
 		toolBar.addSeparator();
-		//BOTON LEYES DE LA FISICA
+		// BOTON LEYES DE LA FISICA
 		physicsButton = new JButton();
 		physicsButton.setIcon(new ImageIcon("resources/icons/physics.png"));
 		physicsButton.addActionListener(new ActionListener() {
@@ -104,56 +103,56 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		});
 		toolBar.add(physicsButton);
 		toolBar.addSeparator();
-		
-		//BOTON DE RUN
+
+		// BOTON DE RUN
 		runButton = new JButton();
 		runButton.setIcon(new ImageIcon("resources/icons/run.png"));
 		runButton.addActionListener(new ActionListener() {
-			 @Override
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Desactivamos todos los botones excepto el de stop
+				// Desactivamos todos los botones excepto el de stop
 				loadButton.setEnabled(false);
 				physicsButton.setEnabled(false);
 				runButton.setEnabled(false);
 				numPasos.setEnabled(false);
 				dt.setEnabled(false);
-				
-				//Cambiamos el valor de stopper
+
+				// Cambiamos el valor de stopper
 				_stopped = false;
-				
-				//Ponemos el dt correspondiente
+
+				// Ponemos el dt correspondiente
 				_ctrl.setDeltaTime(Double.parseDouble(dt.getText()));
-				
-				//Llamamos al run__sim con los pasos que diga el spinner
+
+				// Llamamos al run__sim con los pasos que diga el spinner
 				int value = (Integer) numPasos.getValue();
 				run_sim(value);
-				
+
 			}
-		}); 
+		});
 		toolBar.add(runButton);
-		
-		//BOTON DE STOP
+
+		// BOTON DE STOP
 		stopButton = new JButton();
 		stopButton.setIcon(new ImageIcon("resources/icons/stop.png"));
 		stopButton.addActionListener(new ActionListener() {
-			 @Override
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Cambiamos el valor de stopper
-				_stopped = true;	
+				// Cambiamos el valor de stopper
+				_stopped = true;
 			}
-		}); 
+		});
 		toolBar.add(stopButton);
-		
-		//SELECTOR DEL NUMERO DE PASOS		
+
+		// SELECTOR DEL NUMERO DE PASOS
 		jl1 = new JLabel("Steps: ");
 		jl1.setOpaque(true);
-	    SpinnerModel modelo = new SpinnerNumberModel(10000, 0, 500000, 100);//value, min, max, steps
-	    numPasos = new JSpinner(modelo);
-	    numPasos.setMaximumSize(new Dimension(200, 50));
+		SpinnerModel modelo = new SpinnerNumberModel(10000, 0, 500000, 100);// value, min, max, steps
+		numPasos = new JSpinner(modelo);
+		numPasos.setMaximumSize(new Dimension(200, 50));
 		toolBar.add(jl1);
 		toolBar.add(numPasos);
 
-		//DELTA TIME
+		// DELTA TIME
 		jl2 = new JLabel("Delta time: ");
 		jl2.setOpaque(true);
 		dt = new JTextField(6);
@@ -162,30 +161,26 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		toolBar.add(jl2);
 		toolBar.add(dt);
 
-				
 		toolBar.add(Box.createGlue());
 		toolBar.addSeparator();
-		//BOTON DE CERRAR
+		// BOTON DE CERRAR
 		exitButton = new JButton();
 		exitButton.setIcon(new ImageIcon("resources/icons/exit.png"));
 		toolBar.add(exitButton);
 		exitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object[] options = {"Si","No"}; 
-				int n = JOptionPane.showOptionDialog(null, 
-						"Estas seguro de querer cerrar el simulador?:",
-						"Physics Simulator", 
-						JOptionPane.YES_NO_OPTION, 
-						JOptionPane.INFORMATION_MESSAGE,
-						null, options, options[0]);
-					if (n==JOptionPane.YES_OPTION)
-						System.exit(0);
+				Object[] options = { "Si", "No" };
+				int n = JOptionPane.showOptionDialog(null, "Estas seguro de querer cerrar el simulador?:",
+						"Physics Simulator", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options,
+						options[0]);
+				if (n == JOptionPane.YES_OPTION)
+					System.exit(0);
 			}
 		});
-		
+
 		toolBar.setFloatable(true);
-		//this.setVisible(true);
+		// this.setVisible(true);
 		this.add(toolBar, BorderLayout.PAGE_START);
 	}
 
@@ -196,7 +191,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 				_ctrl.run(1);
 			} catch (Exception e) {
 				// show the error in a dialog box
-				JOptionPane.showMessageDialog(this,"Error Dialog.", "Error Icon", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Error Dialog.", "Error Icon", JOptionPane.ERROR_MESSAGE);
 				// enable all buttons
 				loadButton.setEnabled(true);
 				physicsButton.setEnabled(true);
@@ -220,32 +215,30 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			runButton.setEnabled(true);
 			numPasos.setEnabled(true);
 			dt.setEnabled(true);
-			_stopped = true;		}
+			_stopped = true;
+		}
 	}
-	
+
 	protected void selectForceLaws() {
-		
-		if(forceLawsDialog == null) {
+
+		if (forceLawsDialog == null) {
 			JFrame ancestor = (JFrame) SwingUtilities.getWindowAncestor(this);
 			this.forceLawsDialog = new MyDialogWindow(ancestor);
 		}
-		
-		
-		//Le pasamos las leyes de fuerza disponibles
+
+		// Le pasamos las leyes de fuerza disponibles
 		int status = this.forceLawsDialog.open(_ctrl.getForceLawsInfo());
 
-		
 		if (status == 0) {
 			System.out.println("Canceled");
 		} else {
-			//TODO Anyadir la ley que seleccione 
-			//Le digo que me de el valor de la tabla resultante
-				_ctrl.setForceLaws(forceLawsDialog.getTableData());
-			//Si no se ha modificado, sera el mismo json
+			// TODO Anyadir la ley que seleccione
+			// Le digo que me de el valor de la tabla resultante
+			_ctrl.setForceLaws(forceLawsDialog.getTableData());
+			// Si no se ha modificado, sera el mismo json
 			System.out.println("Ha pulsado OK " + this.forceLawsDialog.getForceLaw());
 		}
-		
-		
+
 	}
 	// SimulatorObserver methods
 

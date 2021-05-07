@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
 
 import simulator.control.Controller;
@@ -33,10 +34,11 @@ public class Viewer extends JComponent implements SimulatorObserver {
 	private List<Body> _bodies;
 	private boolean _showHelp;
 	private boolean _showVectors;
+	private JLabel _help; // help toggle
 
 	Viewer(Controller ctrl) {
 		initGUI();
-		 ctrl.addObserver(this); //Todavia no funciona
+		ctrl.addObserver(this); // Todavia no funciona
 	}
 
 	private void initGUI() { // TODO add border with title
@@ -47,7 +49,7 @@ public class Viewer extends JComponent implements SimulatorObserver {
 		_scale = 1.0;
 		_showHelp = true;
 		_showVectors = true;
-		
+
 		addKeyListener(new KeyListener() {
 			// ...
 			@Override
@@ -156,22 +158,27 @@ public class Viewer extends JComponent implements SimulatorObserver {
 					_centerY - (int) (body.getPosition().getY() / _scale));
 
 			if (_showVectors) {
-				drawLineWithArrow(gr, (int) (body.getForce().getX() / _scale), (int) (body.getForce().getY() / _scale),
-						(int) (body.getForce().getX() / _scale) + 8, (int) (body.getForce().getY() / _scale) + 8, 3, 4,
-						Color.RED, Color.RED);
+				// drawLineWithArrow(gr,_centerX + (int) (body.getPosition().getX() /
+				// _scale)+5,_centerY - (int) (body.getPosition().getY() / _scale)+5, _centerX +
+				// (int) (body.getVelocity().getY() / _scale)+8,(int) (body.getForce().getY() /
+				// _scale) + 8, 3, 4, Color.RED, Color.RED);
 
-				drawLineWithArrow(gr, (int) (body.getVelocity().getX() / _scale),
-						(int) (body.getVelocity().getY() / _scale), (int) (body.getVelocity().getX() / _scale) + 8,
-						(int) (body.getVelocity().getY() / _scale) + 8, 3, 4, Color.GREEN, Color.GREEN);
+				// drawLineWithArrow(gr, _centerX + (int) (body.getVelocity().getX() / _scale),
+				// _centerY + (int) (body.getVelocity().getY() / _scale),_centerX - (int)
+				// (body.getVelocity().getX() / _scale) + 8,_centerY - (int)
+				// (body.getVelocity().getY() / _scale) + 8, 3, 4, Color.GREEN, Color.GREEN);
 			}
 		}
 
 		// TODO draw help if _showHelp is true
-		if (_showHelp) {
 
-		}
+		_help = new JLabel();
+		this.add(_help);
+		_help.setText("ADADA");
+
+		_help.setVisible(_showHelp);
+
 	}
-
 	// other private/protected methods
 	// ...
 
