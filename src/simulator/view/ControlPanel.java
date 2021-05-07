@@ -28,6 +28,8 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
+import org.json.JSONObject;
+
 import simulator.control.Controller;
 import simulator.model.Body;
 import simulator.model.SimulatorObserver;
@@ -65,6 +67,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		//BOTON CARGHAR DATOS
 		loadButton = new JButton();
 		fc = new JFileChooser();
+		File workingDirectory = new File(System.getProperty("user.dir"));
+		fc.setCurrentDirectory(workingDirectory);
 		loadButton.setIcon(new ImageIcon("resources/icons/open.png"));
 		loadButton.addActionListener(new ActionListener() {
 			@Override
@@ -121,7 +125,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 				_ctrl.setDeltaTime(Double.parseDouble(dt.getText()));
 				
 				//Llamamos al run__sim con los pasos que diga el spinner
-				
+				int value = (Integer) numPasos.getValue();
+				run_sim(value);
 				
 			}
 		}); 
@@ -142,7 +147,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		//SELECTOR DEL NUMERO DE PASOS		
 		jl1 = new JLabel("Steps: ");
 		jl1.setOpaque(true);
-	    SpinnerModel modelo = new SpinnerNumberModel(0, 0, 4000, 100);//value, min, max, steps
+	    SpinnerModel modelo = new SpinnerNumberModel(10000, 0, 500000, 100);//value, min, max, steps
 	    numPasos = new JSpinner(modelo);
 	    numPasos.setMaximumSize(new Dimension(200, 50));
 		toolBar.add(jl1);
@@ -152,6 +157,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		jl2 = new JLabel("Delta time: ");
 		jl2.setOpaque(true);
 		dt = new JTextField(6);
+		dt.setText("2.500");
 		dt.setMaximumSize(new Dimension(200, 50));
 		toolBar.add(jl2);
 		toolBar.add(dt);
@@ -189,8 +195,14 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			try {
 				_ctrl.run(1);
 			} catch (Exception e) {
-				// TODO show the error in a dialog box
-				// TODO enable all buttons
+				// show the error in a dialog box
+				JOptionPane.showMessageDialog(this,"Error Dialog.", "Error Icon", JOptionPane.ERROR_MESSAGE);
+				// enable all buttons
+				loadButton.setEnabled(true);
+				physicsButton.setEnabled(true);
+				runButton.setEnabled(true);
+				numPasos.setEnabled(true);
+				dt.setEnabled(true);
 				_stopped = true;
 				return;
 			}
@@ -202,8 +214,13 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			});
 		} else {
 			_stopped = true;
-			// TODO enable all buttons
-		}
+			// enable all buttons
+			loadButton.setEnabled(true);
+			physicsButton.setEnabled(true);
+			runButton.setEnabled(true);
+			numPasos.setEnabled(true);
+			dt.setEnabled(true);
+			_stopped = true;		}
 	}
 	
 	protected void selectForceLaws() {
@@ -234,14 +251,15 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 
 	@Override
 	public void onRegister(List<Body> bodies, double time, double dt, String fLawsDesc) {
-		// TODO Auto-generated method stub
+		String cadena = String.valueOf(dt);
+		this.dt.setText(cadena);
 
 	}
 
 	@Override
 	public void onReset(List<Body> bodies, double time, double dt, String fLawsDesc) {
-		// TODO Auto-generated method stub
-
+		String cadena = String.valueOf(dt);
+		this.dt.setText(cadena);
 	}
 
 	@Override
@@ -258,13 +276,14 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 
 	@Override
 	public void onDeltaTimeChanged(double dt) {
-		// TODO Auto-generated method stub
+		String cadena = String.valueOf(dt);
+		this.dt.setText(cadena);
 
 	}
 
 	@Override
 	public void onForceLawsChanged(String fLawsDesc) {
-		// TODO Auto-generated method stub
-
+//		JSONObject aux = new JSONObject(fLawsDesc);
+//		_ctrl.setForceLaws(aux);
 	}
 }

@@ -21,7 +21,7 @@ public class BodiesTableModel extends AbstractTableModel implements SimulatorObs
 	
 	BodiesTableModel(Controller ctrl) {
 		this._bodies = new ArrayList<>();
-		//ctrl.addObserver(this); //TODAVIA NO FUNCIONA
+		ctrl.addObserver(this);
 	}
 
 	@Override 
@@ -57,25 +57,28 @@ public class BodiesTableModel extends AbstractTableModel implements SimulatorObs
 
 	
 	// SimulatorObserver methods
-
 	@Override
 	public void onRegister(List<Body> bodies, double time, double dt, String fLawsDesc) {
+		this._bodies = bodies;
 		fireTableStructureChanged();
 	}
 
 	@Override
 	public void onReset(List<Body> bodies, double time, double dt, String fLawsDesc) {
+		this._bodies = bodies;
 		fireTableStructureChanged();
 
 	}
 
 	@Override
 	public void onBodyAdded(List<Body> bodies, Body b) {
+		this._bodies = bodies;
 		fireTableStructureChanged();
 	}
 
 	@Override
 	public void onAdvance(List<Body> bodies, double time) {
+		this._bodies = bodies;
 		fireTableStructureChanged();
 		
 	}
