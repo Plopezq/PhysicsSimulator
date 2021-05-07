@@ -40,13 +40,11 @@ public class MainWindow extends JFrame {
 			
 			//ANYADO EL VIEWER
 			centerPanel.add(new Viewer(this._ctrl));
-		
 		mainPanel.add(centerPanel,BorderLayout.CENTER);
-		
+
 		//ANYADO LA BARRA DE ESTADO en el PAGE_END del mainPanel;
 		mainPanel.add(new StatusBar(this._ctrl), BorderLayout.PAGE_END );
 
-		
 		
 		//Centro el JFrame
 		//Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
