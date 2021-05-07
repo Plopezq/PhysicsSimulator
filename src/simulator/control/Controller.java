@@ -100,7 +100,11 @@ public class Controller {
 		//Puedes usar el método run que has programado en la práctica 1 de manera que, 
 		//cuando se llame desde la GUI, se le proporcione un OutputStream que no imprima nada:
 		//VER pagina 4
-		OutputStream osAux = new OutputStream() { @Override public void write(int b) throws IOException { }; };		
+		OutputStream osAux = new OutputStream() { 
+			@Override 
+			public void write(int b) throws IOException { 
+			}; 
+		};		
 		//TODO revisar si esta bien
 		this.run(n, osAux, null, null);
 	}

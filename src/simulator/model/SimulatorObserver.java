@@ -16,4 +16,5 @@ public interface SimulatorObserver {
 //b es un cuerpo
 //time es el tiempo actual del simulador
 //dt es el tiempo por paso actual del simulador
-//fLawsDesc es un string que describe las leyes de fuerza actuales
+//fLawsDesc es un string que describe las leyes de fuerza actuales 
+//	(que se obtiene invocando al método toString() de la ley de fuerza actual).

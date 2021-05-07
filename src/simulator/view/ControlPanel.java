@@ -33,7 +33,7 @@ import simulator.model.Body;
 import simulator.model.SimulatorObserver;
 
 public class ControlPanel extends JPanel implements SimulatorObserver {
-// ...
+
 	private Controller _ctrl;
 	private boolean _stopped;
 	private JButton loadButton;
@@ -50,13 +50,12 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	private JTextField dt;
 
 
-
 	public ControlPanel(Controller ctrl) {
 		super();
 		_ctrl = ctrl;
 		_stopped = true;
 		initGUI();
-		_ctrl.addObserver(this); //da problemas
+		_ctrl.addObserver(this);
 	}
 	
 	private void initGUI() {
@@ -72,12 +71,12 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			public void actionPerformed(ActionEvent e) {
 					int v = fc.showOpenDialog(null); 
 					if (v==JFileChooser.APPROVE_OPTION){
-						_ctrl.reset(); //Limpiamos el simulador
+						_ctrl.reset(); //LIMPIAMOS el simulador
 						File file = fc.getSelectedFile();
 					    InputStream stream;
 						try {
 							stream = new FileInputStream(file);
-							_ctrl.loadBodies(stream); //Cargamos el fichero al simulador
+							_ctrl.loadBodies(stream); //CARGAMOS el fichero al simulador
 						} catch (FileNotFoundException e1) {
 							e1.printStackTrace(); //No deberia pasar nunca
 						}
@@ -208,9 +207,27 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	}
 	
 	protected void selectForceLaws() {
-		JFrame ancestor = (JFrame) SwingUtilities.getWindowAncestor(this);
 		
-		this.forceLawsDialog = new MyDialogWindow(ancestor);
+		if(forceLawsDialog == null) {
+			JFrame ancestor = (JFrame) SwingUtilities.getWindowAncestor(this);
+			this.forceLawsDialog = new MyDialogWindow(ancestor);
+		}
+		
+		
+		//Le pasamos las leyes de fuerza disponibles
+		int status = this.forceLawsDialog.open(_ctrl.getForceLawsInfo());
+
+		
+		if (status == 0) {
+			System.out.println("Canceled");
+		} else {
+			//TODO Anyadir la ley que seleccione 
+			//Le digo que me de el valor de la tabla resultante
+				_ctrl.setForceLaws(forceLawsDialog.getTableData());
+			//Si no se ha modificado, sera el mismo json
+			System.out.println("Ha pulsado OK " + this.forceLawsDialog.getForceLaw());
+		}
+		
 		
 	}
 	// SimulatorObserver methods
