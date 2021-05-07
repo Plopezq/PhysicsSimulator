@@ -39,7 +39,7 @@ public class MainWindow extends JFrame {
 			centerPanel.add(new BodiesTable(this._ctrl));
 			
 			//ANYADO EL VIEWER
-			//centerPanel.add(...
+			centerPanel.add(new Viewer(this._ctrl));
 		
 		mainPanel.add(centerPanel,BorderLayout.CENTER);
 		

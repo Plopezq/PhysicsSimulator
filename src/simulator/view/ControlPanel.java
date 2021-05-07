@@ -56,7 +56,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		_ctrl = ctrl;
 		_stopped = true;
 		initGUI();
-		//_ctrl.addObserver(this); //da problemas
+		_ctrl.addObserver(this); //da problemas
 	}
 	
 	private void initGUI() {
