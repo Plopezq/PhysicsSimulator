@@ -83,10 +83,11 @@ class DishSelectionDialog extends JDialog {
 		});
 		buttonsPanel.add(okButton);
 
-		setPreferredSize(new Dimension(500, 200));
-		pack();
-		setResizable(false);
-		setVisible(false);
+		this.setPreferredSize(new Dimension(500, 200));
+	    this.setLocationRelativeTo(null);		
+		this.pack();
+		this.setResizable(false);
+		this.setVisible(false);
 	}
 
 	public int open(List<Dish> dishes) {

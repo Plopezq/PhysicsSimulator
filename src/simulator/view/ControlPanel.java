@@ -3,6 +3,7 @@ package simulator.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -37,6 +39,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	private JButton loadButton;
 	private JFileChooser fc;
 	private JButton physicsButton;
+	private MyDialogWindow forceLawsDialog;
 	private JButton runButton;
 	private JButton stopButton;
 	private JButton exitButton;
@@ -47,14 +50,15 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	private JTextField dt;
 
 
-	ControlPanel(Controller ctrl) {
+
+	public ControlPanel(Controller ctrl) {
 		super();
 		_ctrl = ctrl;
 		_stopped = true;
 		initGUI();
 		//_ctrl.addObserver(this); //da problemas
 	}
-
+	
 	private void initGUI() {
 		this.setLayout(new BorderLayout());
 		toolBar = new JToolBar("ToolBar flotante");
@@ -89,14 +93,12 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		//BOTON LEYES DE LA FISICA
 		physicsButton = new JButton();
 		physicsButton.setIcon(new ImageIcon("resources/icons/physics.png"));
-		/*physicsButton.addActionListener(new ActionListener() {
-			/* @Override
+		physicsButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null,
-						"Has pulsado el boton de fisica.", 
-						"Message", JOptionPane.INFORMATION_MESSAGE);
+				selectForceLaws();
 			}
-		});*/ //TODO
+		});
 		toolBar.add(physicsButton);
 		toolBar.addSeparator();
 		
@@ -203,6 +205,13 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			_stopped = true;
 			// TODO enable all buttons
 		}
+	}
+	
+	protected void selectForceLaws() {
+		JFrame ancestor = (JFrame) SwingUtilities.getWindowAncestor(this);
+		
+		this.forceLawsDialog = new MyDialogWindow(ancestor);
+		
 	}
 	// SimulatorObserver methods
 

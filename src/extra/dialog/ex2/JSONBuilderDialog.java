@@ -146,6 +146,7 @@ class JSONBuilderDialog extends JDialog {
 				return component;
 			}
 		};
+		
 		JScrollPane tabelScroll = new JScrollPane(dataTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		mainPanel.add(tabelScroll);
