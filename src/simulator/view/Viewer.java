@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -140,8 +141,32 @@ public class Viewer extends JComponent implements SimulatorObserver {
 		_centerY = getHeight() / 2;
 		
 		// TODO draw a cross at center 
-		
-		// TODO draw bodies (with vectors if _showVectors is true) 
+		gr.setStroke(new BasicStroke(1));
+		gr.drawLine(_centerX - 2, _centerY, _centerX + 2, _centerY);
+		gr.drawLine(_centerX, _centerY - 2, _centerX, _centerY + 2);
+
+		// TODO draw bodies (with vectors if _showVectors is true)
+
+		for (Body body : _bodies) {
+			gr.setColor(Color.BLUE);
+			gr.fillOval(_centerX + (int) (body.getPosition().getX() / _scale),
+					_centerY - (int) (body.getPosition().getY() / _scale), 5, 5);
+			
+			gr.drawString(body.getId(), _centerX + (int) (body.getPosition().getX() / _scale),
+					_centerY - (int) (body.getPosition().getY() / _scale));
+			
+			if (_showVectors) {
+				drawLineWithArrow(gr, (int) (body.getForce().getX() / _scale), (int) (body.getForce().getY() / _scale),
+						(int) (body.getForce().getX() / _scale) + 8, (int) (body.getForce().getY() / _scale) + 8, 3, 4,
+						Color.RED, Color.RED);
+
+				drawLineWithArrow(gr, (int) (body.getVelocity().getX() / _scale),
+						(int) (body.getVelocity().getY() / _scale), (int) (body.getVelocity().getX() / _scale) + 8,
+						(int) (body.getVelocity().getY() / _scale) + 8, 3, 4, Color.GREEN, Color.GREEN);
+
+			}
+
+			}
 		
 		// TODO draw help if _showHelp is true
 		
@@ -198,29 +223,31 @@ public class Viewer extends JComponent implements SimulatorObserver {
 	// SimulatorObserver methods 
 	// ...
 		
-		
-		
 	@Override
 	public void onRegister(List<Body> bodies, double time, double dt, String fLawsDesc) {
-		// TODO Auto-generated method stub
-		
+		// actualiza el valor de _bodies e invoca a autoScale() y a repaint()
+		_bodies = bodies;
+		autoScale();
+		repaint();
 	}
 
 	@Override
 	public void onReset(List<Body> bodies, double time, double dt, String fLawsDesc) {
-		// TODO Auto-generated method stub
-		
+		_bodies = bodies;
+		autoScale();
+		repaint();
 	}
 
 	@Override
 	public void onBodyAdded(List<Body> bodies, Body b) {
-		// TODO Auto-generated method stub
-		
+		_bodies.add(b);
+		autoScale();
+		repaint();
 	}
 
 	@Override
 	public void onAdvance(List<Body> bodies, double time) {
-		// TODO Auto-generated method stub
+		repaint();		
 		
 	}
 

@@ -91,7 +91,7 @@ public class Controller {
 	
 	public void addObserver(SimulatorObserver o) {
 		//Invoca al metodo addObserver del simulador
-		this.addObserver(o);
+		simulador.addObserver(o);
 	}
 	
 	public void run(int n) throws DifferentStatesException {
