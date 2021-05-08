@@ -37,7 +37,6 @@ public class MyDialogWindow extends JDialog {
 	private DefaultComboBoxModel<String> _lawsModel;
 	private int _status;
 	private List<JSONObject> infoLeyes;
-	//private Controller _ctrl;
 	
 	public MyDialogWindow(Frame parent) {
 		super(parent, true);
@@ -96,15 +95,16 @@ public class MyDialogWindow extends JDialog {
 		_laws.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				_status = 0;
+				//_status = 0;
 				_dataTableModel.clear();//Limpio
 				//Anyado la ley que hayan seleccionado
 				String leySeleccionada = getForceLaw();
+				//System.out.println(leySeleccionada);
 				if(leySeleccionada.equals("Newton’s law of universal gravitation")) {
 					//Anyado la ley de newton a la jsontablemodel
 					_dataTableModel._data[0][0] = "G";
 					_dataTableModel._data[0][2] = infoLeyes.get(2).getJSONObject("data").getString("G");					
-					
+				
 				}else if(leySeleccionada.equals("No force")){
 					//Anyado la ley de no force a la jsontablemodel
 					//No hace falta anyadir nada
@@ -135,7 +135,7 @@ public class MyDialogWindow extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_status = 0;
-				MyDialogWindow.this.setVisible(false);
+				setVisible(false);
 			}
 		});
 		opcionesPanel.add(cancelButton);
@@ -146,10 +146,10 @@ public class MyDialogWindow extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Siempre va a ser distinto de null, esta la de newton por defecto
-				//if (_lawsModel.getSelectedItem() != null) {
+				if (_lawsModel.getSelectedItem() != null) {
 					_status = 1;
-					MyDialogWindow.this.setVisible(false);
-				//}
+					setVisible(false);
+				}
 			}
 		});
 		opcionesPanel.add(okButton);
@@ -168,12 +168,13 @@ public class MyDialogWindow extends JDialog {
 	public int getStatus() {
 		return this._status;
 	}
+	
 	public JSONObject getTableData() {
 		JSONObject contenidoTabla = new JSONObject(_dataTableModel.getData());
 		JSONObject aux = new JSONObject();
 		//Diferenciar casos
 		if (getForceLaw().equals("No force")) { //NO FORCE
-			aux.put("type", "ng");
+			aux.put("type", "nf");
 			aux.put("data", contenidoTabla);
 		}
 		if (getForceLaw().equals("Moving towards a fixed point")) { //mvt
@@ -283,10 +284,15 @@ public class MyDialogWindow extends JDialog {
 				getParent().getLocation().x + getParent().getWidth() / 2 - getWidth() / 2, //
 				getParent().getLocation().y + getParent().getHeight() / 2 - getHeight() / 2);
 		setVisible(true);
+		
 		return _status;
 	}
 
 	public String getForceLaw() {
+		//System.out.println("ley" + _lawsModel.getSelectedItem());
+		if(_lawsModel.getSelectedItem() == null) {
+			return "No force";
+		}
 		return (String) _lawsModel.getSelectedItem();
 	}
 }

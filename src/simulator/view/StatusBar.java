@@ -53,6 +53,7 @@ public class StatusBar extends JPanel implements SimulatorObserver{
 		// TODO Auto-generated method stub
 		String cadena = String.valueOf(bodies.size());
 		_numOfBodies.setText("Bodies: " + cadena);
+		_currLaws.setText("Laws: " + fLawsDesc);
 	}
 
 	@Override
@@ -81,7 +82,8 @@ public class StatusBar extends JPanel implements SimulatorObserver{
 
 	@Override
 	public void onForceLawsChanged(String fLawsDesc) {
-		_numOfBodies.setText("Laws: " + fLawsDesc);
+		_currLaws.setText("Laws: " + fLawsDesc);
+		System.out.println("Ley cambia a:" + fLawsDesc);
 	}
 
 	

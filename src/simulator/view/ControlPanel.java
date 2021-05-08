@@ -223,7 +223,6 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			numPasos.setEnabled(true);
 			dt.setEnabled(true);
 			_stopped = true;	
-			//_ctrl.reset();
 		}
 	}
 
@@ -233,19 +232,19 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			JFrame ancestor = (JFrame) SwingUtilities.getWindowAncestor(this);
 			this.forceLawsDialog = new MyDialogWindow(ancestor);
 		}
+		
+		int status = forceLawsDialog.open(_ctrl.getForceLawsInfo());
 
-		// Le pasamos las leyes de fuerza disponibles
-		int status = this.forceLawsDialog.open(_ctrl.getForceLawsInfo());
-
+			_ctrl.setForceLaws(forceLawsDialog.getTableData());
 		if (status == 0) {
 			System.out.println("Canceled");
 		} else {
-			// TODO Anyadir la ley que seleccione
-			// Le digo que me de el valor de la tabla resultante
+			//System.out.println("Here is your JSON:");
+			System.out.println("OK");
 			_ctrl.setForceLaws(forceLawsDialog.getTableData());
-			// Si no se ha modificado, sera el mismo json
-			System.out.println("Ha pulsado OK " + this.forceLawsDialog.getForceLaw());
 		}
+
+
 
 	}
 	// SimulatorObserver methods

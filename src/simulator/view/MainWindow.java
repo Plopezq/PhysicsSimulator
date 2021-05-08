@@ -53,8 +53,8 @@ public class MainWindow extends JFrame {
 	    this.setSize(width/2, height/2);	
 	    this.setLocationRelativeTo(null);		
 	    this.setVisible(true);
-		//this.setBounds(400,400,600,300);
-		this.pack();	
+	    this.setPreferredSize(new Dimension(700, 1000));
+	    this.pack();	
 		
 	}
 	// other private/protected methods
