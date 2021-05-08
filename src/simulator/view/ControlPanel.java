@@ -89,6 +89,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			}
 
 		});
+		loadButton.setToolTipText("Cargar fichero");
 		toolBar.add(loadButton);
 
 		toolBar.addSeparator();
@@ -101,6 +102,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 				selectForceLaws();
 			}
 		});
+		physicsButton.setToolTipText("Cambiar leyes de fuerza");
 		toolBar.add(physicsButton);
 		toolBar.addSeparator();
 
@@ -129,6 +131,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 
 			}
 		});
+		runButton.setToolTipText("Boton de run");
 		toolBar.add(runButton);
 
 		// BOTON DE STOP
@@ -141,6 +144,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 				_stopped = true;
 			}
 		});
+		stopButton.setToolTipText("Boton de stop");
 		toolBar.add(stopButton);
 
 		// SELECTOR DEL NUMERO DE PASOS
@@ -150,6 +154,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		numPasos = new JSpinner(modelo);
 		numPasos.setMaximumSize(new Dimension(200, 50));
 		toolBar.add(jl1);
+		numPasos.setToolTipText("Selector del numero de pasos");
 		toolBar.add(numPasos);
 
 		// DELTA TIME
@@ -159,6 +164,7 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		dt.setText("2.500");
 		dt.setMaximumSize(new Dimension(200, 50));
 		toolBar.add(jl2);
+		dt.setToolTipText("Delta time");
 		toolBar.add(dt);
 
 		toolBar.add(Box.createGlue());
@@ -166,7 +172,6 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		// BOTON DE CERRAR
 		exitButton = new JButton();
 		exitButton.setIcon(new ImageIcon("resources/icons/exit.png"));
-		toolBar.add(exitButton);
 		exitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -178,7 +183,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 					System.exit(0);
 			}
 		});
-
+		exitButton.setToolTipText("Boton de cerrar");
+		toolBar.add(exitButton);
 		toolBar.setFloatable(true);
 		// this.setVisible(true);
 		this.add(toolBar, BorderLayout.PAGE_START);
@@ -215,7 +221,8 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 			runButton.setEnabled(true);
 			numPasos.setEnabled(true);
 			dt.setEnabled(true);
-			_stopped = true;		
+			_stopped = true;	
+			//_ctrl.reset();
 		}
 	}
 
