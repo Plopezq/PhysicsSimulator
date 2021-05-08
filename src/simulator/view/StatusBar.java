@@ -83,7 +83,7 @@ public class StatusBar extends JPanel implements SimulatorObserver{
 	@Override
 	public void onForceLawsChanged(String fLawsDesc) {
 		_currLaws.setText("Laws: " + fLawsDesc);
-		System.out.println("Ley cambia a:" + fLawsDesc);
+		//System.out.println("Ley cambia a:" + fLawsDesc);
 	}
 
 	

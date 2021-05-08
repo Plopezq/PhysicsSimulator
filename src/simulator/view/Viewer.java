@@ -247,7 +247,7 @@ public class Viewer extends JComponent implements SimulatorObserver {
 
 	@Override
 	public void onBodyAdded(List<Body> bodies, Body b) {
-		_bodies.add(b);
+		_bodies = bodies;
 		autoScale();
 		repaint();
 	}
@@ -255,7 +255,6 @@ public class Viewer extends JComponent implements SimulatorObserver {
 	@Override
 	public void onAdvance(List<Body> bodies, double time) {
 		repaint();
-
 	}
 
 	@Override
