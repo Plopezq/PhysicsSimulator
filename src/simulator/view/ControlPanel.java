@@ -52,7 +52,6 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 	private JTextField dt;
 
 	public ControlPanel(Controller ctrl) {
-		super();
 		_ctrl = ctrl;
 		_stopped = true;
 		initGUI();
