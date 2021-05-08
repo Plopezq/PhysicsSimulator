@@ -23,7 +23,7 @@ public class MainWindow extends JFrame {
 	private void initGUI() {
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 		//ANYADO AL PANEL EL PANEL DE CONTROL en el PAGE_START del panel mainPanel;
 		mainPanel.add(new ControlPanel(this._ctrl), BorderLayout.PAGE_START );
@@ -47,10 +47,10 @@ public class MainWindow extends JFrame {
 
 		
 		//Centro el JFrame
-		//Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-	    //int height = pantalla.height;
-	    //int width = pantalla.width;
-	    //this.setSize(width/2, height/2);	
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+	    int height = pantalla.height;
+	    int width = pantalla.width;
+	    this.setSize(width/2, height/2);	
 	    this.setLocationRelativeTo(null);		
 	    this.setVisible(true);
 		//this.setBounds(400,400,600,300);

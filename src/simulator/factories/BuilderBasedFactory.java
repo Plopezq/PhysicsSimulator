@@ -27,6 +27,7 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 //		hasta que encuentre el constructor capaz de crear el objeto correspondiente — 
 //		debe lanzar una excepcion IllegalArgumentException en caso de fallo.
 		T obj = null;
+		System.out.println(info);
 		for(Builder<T> build : this.constructores) {
 			obj = build.createInstance(info);
 			if (obj != null) return obj;

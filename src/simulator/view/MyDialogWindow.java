@@ -115,13 +115,9 @@ public class MyDialogWindow extends JDialog {
 					_dataTableModel._data[0][2] = infoLeyes.get(1).getJSONObject("data").getString("c");					
 					_dataTableModel._data[1][0] = "g";
 					_dataTableModel._data[1][2] = infoLeyes.get(1).getJSONObject("data").getString("g");
-
 					
 				}
-				
 				_dataTableModel.fireTableStructureChanged();
-				
-				
 			}
 		});
 		selectorFuerzas.add(_laws);	
@@ -173,9 +169,21 @@ public class MyDialogWindow extends JDialog {
 		return this._status;
 	}
 	public JSONObject getTableData() {
-		
-		
-		JSONObject aux = new JSONObject(_dataTableModel.getData());
+		JSONObject contenidoTabla = new JSONObject(_dataTableModel.getData());
+		JSONObject aux = new JSONObject();
+		//Diferenciar casos
+		if (getForceLaw().equals("No force")) { //NO FORCE
+			aux.put("type", "ng");
+			aux.put("data", contenidoTabla);
+		}
+		if (getForceLaw().equals("Moving towards a fixed point")) { //mvt
+			aux.put("type", "mtfp");
+			aux.put("data", contenidoTabla);
+		}
+		if (getForceLaw().equals("Newton’s law of universal gravitation")) { //mvt
+			aux.put("type", "nlug");
+			aux.put("data", contenidoTabla);
+		}
 		
 		return aux;
 	}
@@ -241,6 +249,9 @@ public class MyDialogWindow extends JDialog {
 		// value (2nd column).
 		//
 		public String getData() {
+			// si es no force devuelve {}
+			//Si no rellena nada, tb se devuelve {}
+			//y se usa el creador por defecto
 			StringBuilder s = new StringBuilder();
 			s.append('{');
 			for (int i = 0; i < _data.length; i++) {
@@ -254,8 +265,6 @@ public class MyDialogWindow extends JDialog {
 				}
 			}
 
-			if (s.length() > 1)
-				s.deleteCharAt(s.length() - 1);
 			s.append('}');
 
 			return s.toString();
@@ -267,7 +276,6 @@ public class MyDialogWindow extends JDialog {
 		this.infoLeyes = forceLawsInfo; //Almaceno el JSON completo de leyes
 		_lawsModel.removeAllElements();
 		for(JSONObject fl: forceLawsInfo) {
-			//TODO revisar si anyadir json o forcelaws
 			_lawsModel.addElement((String)fl.get("desc"));
 		}
 		

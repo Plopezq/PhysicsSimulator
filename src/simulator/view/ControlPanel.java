@@ -172,11 +172,12 @@ public class ControlPanel extends JPanel implements SimulatorObserver {
 		// BOTON DE CERRAR
 		exitButton = new JButton();
 		exitButton.setIcon(new ImageIcon("resources/icons/exit.png"));
+		JFrame ancestor = (JFrame) SwingUtilities.getWindowAncestor(this);
 		exitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object[] options = { "Si", "No" };
-				int n = JOptionPane.showOptionDialog(null, "Estas seguro de querer cerrar el simulador?:",
+				int n = JOptionPane.showOptionDialog(ancestor, "Estas seguro de querer cerrar el simulador?:",
 						"Physics Simulator", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options,
 						options[0]);
 				if (n == JOptionPane.YES_OPTION)
