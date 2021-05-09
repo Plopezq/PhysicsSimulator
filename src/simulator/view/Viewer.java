@@ -38,10 +38,10 @@ public class Viewer extends JComponent implements SimulatorObserver {
 
 	Viewer(Controller ctrl) {
 		initGUI();
-		ctrl.addObserver(this); // Todavia no funciona
+		ctrl.addObserver(this); // 
 	}
 
-	private void initGUI() { // TODO add border with title
+	private void initGUI() { //  add border with title
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 2), "Viewer",
 				TitledBorder.LEFT, TitledBorder.TOP));
@@ -125,7 +125,13 @@ public class Viewer extends JComponent implements SimulatorObserver {
 		});
 
 		this.setPreferredSize(new Dimension(300, 500));
-
+		_help = new JLabel();
+		_help.setHorizontalTextPosition(JLabel.LEFT);
+		_help.setVerticalTextPosition(JLabel.TOP);
+		_help.setForeground(Color.red);
+		this.add(_help, BorderLayout.PAGE_START);
+		
+		
 	}
 
 	@Override
@@ -141,7 +147,7 @@ public class Viewer extends JComponent implements SimulatorObserver {
 		_centerX = getWidth() / 2;
 		_centerY = getHeight() / 2;
 
-		// TODO draw a cross at center
+		//  draw a cross at center
 		gr.setStroke(new BasicStroke(1));
 		gr.setColor(Color.RED);
 		gr.drawLine(_centerX - 4, _centerY, _centerX + 4, _centerY);
@@ -158,24 +164,26 @@ public class Viewer extends JComponent implements SimulatorObserver {
 					_centerY - (int) (body.getPosition().getY() / _scale));
 
 			if (_showVectors) {
-				// drawLineWithArrow(gr,_centerX + (int) (body.getPosition().getX() /
-				// _scale)+5,_centerY - (int) (body.getPosition().getY() / _scale)+5, _centerX +
-				// (int) (body.getVelocity().getY() / _scale)+8,(int) (body.getForce().getY() /
-				// _scale) + 8, 3, 4, Color.RED, Color.RED);
 
-				// drawLineWithArrow(gr, _centerX + (int) (body.getVelocity().getX() / _scale),
-				// _centerY + (int) (body.getVelocity().getY() / _scale),_centerX - (int)
-				// (body.getVelocity().getX() / _scale) + 8,_centerY - (int)
-				// (body.getVelocity().getY() / _scale) + 8, 3, 4, Color.GREEN, Color.GREEN);
+				int xvelocidad, yvelocidad, xfuerza, yfuerza;
+				xvelocidad = _centerX + (int) (body.getPosition().getX() / _scale)
+						+ (int) (body.getVelocity().getX() / _scale);
+				yvelocidad = _centerY - (int) (body.getPosition().getY() / _scale)
+						- (int) (body.getVelocity().getY() / _scale);
+				xfuerza = _centerX + (int) (body.getPosition().getX() / _scale)
+						+ (int) (body.getForce().getX() / _scale);
+				yfuerza = _centerY - (int) (body.getPosition().getY() / _scale);
+				
+				
+				drawLineWithArrow(gr,_centerX + (int) (body.getPosition().getX() / _scale), _centerX - (int) (body.getPosition().getY() / _scale), xvelocidad, yvelocidad, 5, 5, Color.RED, Color.RED);
+				drawLineWithArrow(gr,_centerX + (int) (body.getPosition().getX() / _scale), _centerX - (int) (body.getPosition().getY() / _scale), xfuerza, yfuerza, 5, 5, Color.GREEN, Color.GREEN);
+
 			}
 		}
 
 		// TODO draw help if _showHelp is true
-
-		_help = new JLabel();
-		this.add(_help);
-		_help.setText("ADADA");
-
+		_help.setText("<html>h: toggle help, v: toggle vectors, +: zoom in, -: zoom out, =: fit<br/>"
+				+ "Scaling ratio:"+_scale+"</html>");
 		_help.setVisible(_showHelp);
 
 	}
@@ -197,12 +205,8 @@ public class Viewer extends JComponent implements SimulatorObserver {
 	// This method draws a line from (x1,y1) to (x2,y2) with an arrow.
 	// The arrow is of height h and width w.
 	// The last two arguments are the colors of the arrow and the line
-	private void drawLineWithArrow(//
-			Graphics g, //
-			int x1, int y1, //
-			int x2, int y2, //
-			int w, int h, //
-			Color lineColor, Color arrowColor) {
+	private void drawLineWithArrow(Graphics g, int x1, int y1, int x2, int y2, int w, int h, Color lineColor,
+			Color arrowColor) {
 
 		int dx = x2 - x1, dy = y2 - y1;
 		double D = Math.sqrt(dx * dx + dy * dy);
