@@ -157,34 +157,33 @@ public class Viewer extends JComponent implements SimulatorObserver {
 
 		for (Body body : _bodies) {
 			gr.setColor(Color.BLUE);
-			gr.fillOval(_centerX + (int) (body.getPosition().getX() / _scale),
-					_centerY - (int) (body.getPosition().getY() / _scale), 5, 5);
+			
+			int x, y;
+			x = _centerX + (int) (body.getPosition().getX() / _scale);
+			y = _centerY - (int) (body.getPosition().getY() / _scale);
+			gr.fillOval(x, y, 5, 5);
 
-			gr.drawString(body.getId(), _centerX + (int) (body.getPosition().getX() / _scale),
-					_centerY - (int) (body.getPosition().getY() / _scale));
+			gr.drawString(body.getId(), x, y);
 
 			if (_showVectors) {
-
 				int xvelocidad, yvelocidad, xfuerza, yfuerza;
-				xvelocidad = _centerX + (int) (body.getPosition().getX() / _scale)
-						+ (int) (body.getVelocity().getX() / _scale);
-				yvelocidad = _centerY - (int) (body.getPosition().getY() / _scale)
-						- (int) (body.getVelocity().getY() / _scale);
-				xfuerza = _centerX + (int) (body.getPosition().getX() / _scale)
-						+ (int) (body.getForce().getX() / _scale);
-				yfuerza = _centerY - (int) (body.getPosition().getY() / _scale);
-				
-				
-				drawLineWithArrow(gr,_centerX + (int) (body.getPosition().getX() / _scale), _centerX - (int) (body.getPosition().getY() / _scale), xvelocidad, yvelocidad, 5, 5, Color.RED, Color.RED);
-				drawLineWithArrow(gr,_centerX + (int) (body.getPosition().getX() / _scale), _centerX - (int) (body.getPosition().getY() / _scale), xfuerza, yfuerza, 5, 5, Color.GREEN, Color.GREEN);
+				xvelocidad = x + (int) (body.getVelocity().getX()/_scale );
+				yvelocidad = y + (int) (body.getVelocity().getY() /_scale);
+				xfuerza = x + (int) (body.getForce().getX() / _scale);
+				yfuerza = y + (int) (body.getForce().getY() / _scale);
+
+				drawLineWithArrow(gr, x, y, xvelocidad, yvelocidad, 50, 50, Color.RED, Color.RED);
+				drawLineWithArrow(gr, x, y, xfuerza, yfuerza, 2, 2, Color.GREEN, Color.GREEN);
 
 			}
 		}
 
-		// TODO draw help if _showHelp is true
-		_help.setText("<html>h: toggle help, v: toggle vectors, +: zoom in, -: zoom out, =: fit<br/>"
-				+ "Scaling ratio:"+_scale+"</html>");
+		//  draw help if _showHelp is true
+
 		_help.setVisible(_showHelp);
+		if (_showHelp)
+			_help.setText("<html>h: toggle help, v: toggle vectors, +: zoom in, -: zoom out, =: fit<br/>"
+					+ "Scaling ratio:" + _scale + "</html>");
 
 	}
 	// other private/protected methods
