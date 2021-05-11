@@ -158,6 +158,7 @@ public class Viewer extends JComponent implements SimulatorObserver {
 		for (Body body : _bodies) {
 			gr.setColor(Color.BLUE);
 			
+			//DIBUJAMOS LOS CUERPOS
 			int x, y;
 			x = _centerX + (int) (body.getPosition().getX() / _scale);
 			y = _centerY - (int) (body.getPosition().getY() / _scale);
@@ -167,13 +168,13 @@ public class Viewer extends JComponent implements SimulatorObserver {
 
 			if (_showVectors) {
 				int xvelocidad, yvelocidad, xfuerza, yfuerza;
-				xvelocidad = x + (int) (body.getVelocity().getX()/_scale );
-				yvelocidad = y - (int) (body.getVelocity().getY() /_scale);
-				xfuerza = x + (int) (body.getForce().getX() / _scale);
-				yfuerza = y - (int) (body.getForce().getY() / _scale);
+				xvelocidad = x + (int) (body.getVelocity().direction().getX() * 100);
+				yvelocidad = y - (int) (body.getVelocity().direction().getY() * 100);
+				xfuerza = x + (int) (body.getForce().direction().getX() * 100);
+				yfuerza = y - (int) (body.getForce().direction().getY() * 100);
 
-				drawLineWithArrow(gr, x, y, xvelocidad, yvelocidad, 50, 50, Color.RED, Color.RED);
-				drawLineWithArrow(gr, x, y, xfuerza, yfuerza, 2, 2, Color.GREEN, Color.GREEN);
+				drawLineWithArrow(g, x, y, xvelocidad, yvelocidad, 5, 10, Color.RED, Color.RED);
+				drawLineWithArrow(gr, x, y, xfuerza, yfuerza, 5, 10, Color.GREEN, Color.GREEN);
 
 			}
 		}
@@ -257,6 +258,7 @@ public class Viewer extends JComponent implements SimulatorObserver {
 
 	@Override
 	public void onAdvance(List<Body> bodies, double time) {
+		//autoScale();
 		repaint();
 	}
 
