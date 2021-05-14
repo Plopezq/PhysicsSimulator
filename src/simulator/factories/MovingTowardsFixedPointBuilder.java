@@ -19,8 +19,17 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 		if(info.isEmpty()) {
 			this.fuerza = new MovingTowardsFixedPoint();
 		}else {
-			Vector2D c = new Vector2D(info.getJSONArray("c").getDouble(0), info.getJSONArray("c").getDouble(1));
-			this.fuerza = new MovingTowardsFixedPoint(c, info.getDouble("g"));
+			if(!info.has("c")) { //Nos da solo la g
+				Vector2D c = new Vector2D(); // [0,0]
+				this.fuerza = new MovingTowardsFixedPoint(c, info.getDouble("g"));
+			}else if(!info.has("g") ) { //Nos da solo la c
+				Vector2D c = new Vector2D(info.getJSONArray("c").getDouble(0), info.getJSONArray("c").getDouble(1));
+				this.fuerza = new MovingTowardsFixedPoint(c, 9.8); //Por defecto
+			}else {// nos da las dos cosas
+				Vector2D c = new Vector2D(info.getJSONArray("c").getDouble(0), info.getJSONArray("c").getDouble(1));
+				this.fuerza = new MovingTowardsFixedPoint(c, info.getDouble("g"));
+			}
+			
 		}
 		
 		return this.fuerza;

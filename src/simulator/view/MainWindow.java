@@ -57,8 +57,6 @@ public class MainWindow extends JFrame {
 	    this.pack();	
 		
 	}
-	// other private/protected methods
-	// ...
-	
+
 	
 }
